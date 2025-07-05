@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733003028874",
+    "project_id": "gulapedia-230c9",
+    "storage_bucket": "gulapedia-230c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733003028874:android:e068392a99fc9b68ca9073",
+        "android_client_info": {
+          "package_name": "com.example.gulapedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_PVGplvIBmEmkKKancaotJMNSNmhdyk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
