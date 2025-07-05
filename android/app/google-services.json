@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:733003028874:android:e068392a99fc9b68ca9073",
+        "mobilesdk_app_id": "1:733003028874:android:ecbafde853acac44ca9073",
         "android_client_info": {
-          "package_name": "com.example.gulapedia"
+          "package_name": "gulakupedia.co.id"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "733003028874-8mfugsui7eaci7spu6joueb86fktks07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA_PVGplvIBmEmkKKancaotJMNSNmhdyk8"
@@ -20,7 +25,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733003028874-8mfugsui7eaci7spu6joueb86fktks07.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "733003028874-bmnf01ss3dkrd0erg473r15rc7k7aovf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gulapedia"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733003028874:android:38b2579d6ecc0ccdca9073",
+        "android_client_info": {
+          "package_name": "gulapedia.co.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733003028874-8mfugsui7eaci7spu6joueb86fktks07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_PVGplvIBmEmkKKancaotJMNSNmhdyk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733003028874-8mfugsui7eaci7spu6joueb86fktks07.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "733003028874-bmnf01ss3dkrd0erg473r15rc7k7aovf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gulapedia"
+              }
+            }
+          ]
         }
       }
     }

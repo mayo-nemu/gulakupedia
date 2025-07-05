@@ -17,6 +17,7 @@ abstract class MyUser with _$MyUser {
     required double height,
     required String activities,
     required double bloodSugars,
+    required bool isProfileComplete,
     required bool hasPremiumAccount,
   }) = _MyUser;
 
@@ -25,15 +26,18 @@ abstract class MyUser with _$MyUser {
       userId: '',
       email: '',
       name: '',
-      birthday: DateTime.now(),
+      birthday: MyUser.defaultBirthday,
       gender: '',
       weight: 0,
       height: 0,
       activities: '',
       bloodSugars: 0,
+      isProfileComplete: false,
       hasPremiumAccount: false,
     );
   }
+
+  static DateTime get defaultBirthday => DateTime.fromMillisecondsSinceEpoch(0);
 
   static MyUser fromEntity(MyUserEntity entity) {
     return MyUser(
@@ -46,6 +50,7 @@ abstract class MyUser with _$MyUser {
       height: entity.height,
       activities: entity.activities,
       bloodSugars: entity.bloodSugars,
+      isProfileComplete: entity.isProfileComplete,
       hasPremiumAccount: entity.hasPremiumAccount,
     );
   }
@@ -61,6 +66,7 @@ abstract class MyUser with _$MyUser {
       height: height,
       activities: activities,
       bloodSugars: bloodSugars,
+      isProfileComplete: isProfileComplete,
       hasPremiumAccount: hasPremiumAccount,
     );
   }

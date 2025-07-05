@@ -426,32 +426,78 @@ String toString() {
 
 
 class _Success extends SignUpState {
-  const _Success(): super._();
+  const _Success(this.myUser): super._();
   
 
+ final  MyUser? myUser;
 
-
+/// Create a copy of SignUpState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.myUser, myUser) || other.myUser == myUser));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,myUser);
 
 @override
 String toString() {
-  return 'SignUpState.success()';
+  return 'SignUpState.success(myUser: $myUser)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$SuccessCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+@useResult
+$Res call({
+ MyUser? myUser
+});
 
 
+$MyUserCopyWith<$Res>? get myUser;
+
+}
+/// @nodoc
+class __$SuccessCopyWithImpl<$Res>
+    implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
+
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+/// Create a copy of SignUpState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? myUser = freezed,}) {
+  return _then(_Success(
+freezed == myUser ? _self.myUser : myUser // ignore: cast_nullable_to_non_nullable
+as MyUser?,
+  ));
+}
+
+/// Create a copy of SignUpState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MyUserCopyWith<$Res>? get myUser {
+    if (_self.myUser == null) {
+    return null;
+  }
+
+  return $MyUserCopyWith<$Res>(_self.myUser!, (value) {
+    return _then(_self.copyWith(myUser: value));
+  });
+}
+}
 
 // dart format on

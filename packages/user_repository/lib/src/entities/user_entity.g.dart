@@ -16,6 +16,7 @@ MyUserEntity _$MyUserEntityFromJson(Map<String, dynamic> json) => MyUserEntity(
   height: (json['height'] as num).toDouble(),
   activities: json['activities'] as String,
   bloodSugars: (json['blood_sugars'] as num).toDouble(),
+  isProfileComplete: json['is_profile_complete'] as bool,
   hasPremiumAccount: json['has_premium_account'] as bool,
 );
 
@@ -30,5 +31,6 @@ Map<String, dynamic> _$MyUserEntityToJson(MyUserEntity instance) =>
       'height': instance.height,
       'activities': instance.activities,
       'blood_sugars': instance.bloodSugars,
+      'is_profile_complete': instance.isProfileComplete,
       'has_premium_account': instance.hasPremiumAccount,
     };

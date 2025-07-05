@@ -12,16 +12,18 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc(this._userRepository) : super(_Initial()) {
     on<_SignInRequired>((event, emit) async {
       emit(SignInState.loading());
-      try {
-        await _userRepository.signIn(event.email, event.password);
-        emit(SignInState.success());
-      } catch (e) {
-        emit(SignInState.failure(e.toString()));
-      }
+      final result = await _userRepository.signIn(event.email, event.password);
+      result.fold(
+        (failure) => emit(SignInState.failure(failure.message)),
+        (_) => emit(SignInState.success()),
+      );
     });
     on<_SignOutRequired>((event, emit) async {
-      await _userRepository.logOut();
-      emit(SignInState.success());
+      final result = await _userRepository.logOut();
+      result.fold(
+        (failure) => emit(SignInState.failure(failure.message)),
+        (_) => emit(SignInState.success()),
+      );
     });
   }
 }

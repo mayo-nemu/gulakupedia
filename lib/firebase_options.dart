@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -51,18 +54,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA_PVGplvIBmEmkKKancaotJMNSNmhdyk8',
-    appId: '1:733003028874:android:e068392a99fc9b68ca9073',
+    appId: '1:733003028874:android:ecbafde853acac44ca9073',
     messagingSenderId: '733003028874',
     projectId: 'gulapedia-230c9',
     storageBucket: 'gulapedia-230c9.firebasestorage.app',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCyENGyeo5Rn5Bi8-rsLFPi79Wfz-uQp0k',
-    appId: '1:733003028874:ios:5c7e88fb9fba1f10ca9073',
-    messagingSenderId: '733003028874',
-    projectId: 'gulapedia-230c9',
-    storageBucket: 'gulapedia-230c9.firebasestorage.app',
-    iosBundleId: 'com.example.gulapedia',
-  );
 }

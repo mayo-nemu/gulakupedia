@@ -1,0 +1,11 @@
+flutter_native_splash:
+  android: true
+  ios: true
+
+  color: "#1A998E"
+  image: "assets/brands/gulapedia-logo-android.png"
+
+  android_12:
+    color: "#1A998E"
+    image: assets/brands/gulapedia-logo-android.png
+

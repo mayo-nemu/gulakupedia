@@ -10,9 +10,10 @@ class MyAppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Gulapedia',
-      theme: TAppTheme.lightTheme,
       routerConfig: router(context.read<AuthenticationBloc>()),
+      title: 'Gulakupedia',
+      theme: TAppTheme.lightTheme,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -13,15 +13,37 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<_SignUpRequired>((event, emit) async {
       emit(SignUpState.loading());
       try {
-        MyUser user = await _userRepository.signUp(
+        final signInResult = await _userRepository.signUp(
           event.myUser,
           event.password,
         );
-        await _userRepository.setUserData(user);
-        emit(SignUpState.success());
+        signInResult.fold(
+          (failure) => emit(SignUpState.failure(failure.message)),
+          (signedUpMyUser) async {
+            final result = await _userRepository.setUserData(signedUpMyUser);
+            result.fold(
+              (failure) => emit(SignUpState.failure(failure.message)),
+              (_) => emit(SignUpState.success(signedUpMyUser)),
+            );
+          },
+        );
       } catch (e) {
         emit(SignUpState.failure(e.toString()));
       }
     });
+    on<_UpdateProfile>((event, emit) async {
+      emit(SignUpState.loading());
+      try {
+        final result = await _userRepository.setUserData(event.myUser);
+
+        result.fold(
+          (failure) => emit(SignUpState.failure(failure.message)),
+          (_) => emit(SignUpState.success(event.myUser)),
+        );
+      } catch (e) {
+        emit(SignUpState.failure(e.toString()));
+      }
+    });
+    // --- END FIX ---
   }
 }

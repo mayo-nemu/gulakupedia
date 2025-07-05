@@ -28,6 +28,9 @@ class MyUserEntity {
   @JsonKey(name: 'blood_sugars')
   final double bloodSugars;
 
+  @JsonKey(name: 'is_profile_complete')
+  final bool isProfileComplete;
+
   @JsonKey(name: 'has_premium_account')
   final bool hasPremiumAccount;
 
@@ -41,6 +44,7 @@ class MyUserEntity {
     required this.height,
     required this.activities,
     required this.bloodSugars,
+    required this.isProfileComplete,
     required this.hasPremiumAccount,
   });
 

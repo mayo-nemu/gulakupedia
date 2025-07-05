@@ -26,4 +26,46 @@ class InputValidation {
     }
     return null;
   }
+
+  static String? validateWeight(String? number) {
+    if (number == null || number.isEmpty) {
+      return 'Tidak boleh dikosongkan';
+    }
+    final int? weight = int.tryParse(number);
+    if (weight == null) {
+      return 'Bukan angka';
+    }
+    if (weight < 20 || weight > 300) {
+      return 'Berat badan harus antara 20 dan 300 kg';
+    }
+    return null;
+  }
+
+  static String? validateHeight(String? number) {
+    if (number == null || number.isEmpty) {
+      return 'Tidak boleh dikosongkan';
+    }
+    final int? height = int.tryParse(number);
+    if (height == null) {
+      return 'Bukan angka';
+    }
+    if (height < 50 || height > 250) {
+      return 'Tinggi badan harus antara 50 dan 250 cm';
+    }
+    return null;
+  }
+
+  static String? validateBloodSugars(String? number) {
+    if (number == null || number.isEmpty) {
+      return 'Tidak boleh dikosongkan';
+    }
+    final int? bloodSugar = int.tryParse(number);
+    if (bloodSugar == null) {
+      return 'Bukan angka';
+    }
+    if (bloodSugar < 40 || bloodSugar > 600) {
+      return 'Kadar gula darah harus antara 40 dan 600 mg/dL';
+    }
+    return null;
+  }
 }
