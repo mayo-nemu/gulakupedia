@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'base_form_field.dart';
+import 'base_text_field.dart';
 
 class BirthdayField extends StatefulWidget {
   final TextEditingController controller;
@@ -30,7 +30,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseFormField(
+    return BaseTextField(
       controller: widget.controller,
       readOnly: true,
       onTap: () => _selectDate(context),

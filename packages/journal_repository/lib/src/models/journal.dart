@@ -1,39 +1,43 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:journal_repository/src/entities/entities.dart';
-import 'meal.dart';
 
 part 'journal.freezed.dart';
 
 @freezed
 abstract class Journal with _$Journal {
   const Journal._();
-
   const factory Journal({
     required String id,
     required DateTime date,
     required double sugarsGoal,
-    required List<Meal> meals,
+    required bool hasMeals,
   }) = _Journal;
 
+  static DateTime get defaultDate => DateTime.fromMillisecondsSinceEpoch(0);
+
   static Journal empty() {
-    return Journal(id: '', date: DateTime.now(), sugarsGoal: 0, meals: []);
+    return Journal(
+      id: '',
+      date: Journal.defaultDate,
+      sugarsGoal: 30,
+      hasMeals: false,
+    );
   }
 
-  static Journal fromEntity(JournalEntity entity) {
+  static Journal fromEntity(JournalEntity entity, String id) {
     return Journal(
-      id: entity.id,
+      id: id,
       date: entity.date,
       sugarsGoal: entity.sugarsGoal,
-      meals: entity.meals.map((meal) => Meal.fromEntity(meal)).toList(),
+      hasMeals: entity.hasMeals,
     );
   }
 
   JournalEntity toEntity() {
     return JournalEntity(
-      id: id,
       date: date,
       sugarsGoal: sugarsGoal,
-      meals: meals.map((meal) => meal.toEntity()).toList(),
+      hasMeals: hasMeals,
     );
   }
 }

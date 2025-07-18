@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Meal {
 
- String get id; String get name; double get totalCaloriesGram; double get totalProteinsGram; double get totalFatsGram; double get totalSugarsGram; List<Food> get foods;
+ String get id; String? get journalId; String get name; double get totalCaloriesGram; double get totalProteinGram; double get totalFatGram; double get totalSugarsGram; bool get hasFoods;
 /// Create a copy of Meal
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $MealCopyWith<Meal> get copyWith => _$MealCopyWithImpl<Meal>(this as Meal, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Meal&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalCaloriesGram, totalCaloriesGram) || other.totalCaloriesGram == totalCaloriesGram)&&(identical(other.totalProteinsGram, totalProteinsGram) || other.totalProteinsGram == totalProteinsGram)&&(identical(other.totalFatsGram, totalFatsGram) || other.totalFatsGram == totalFatsGram)&&(identical(other.totalSugarsGram, totalSugarsGram) || other.totalSugarsGram == totalSugarsGram)&&const DeepCollectionEquality().equals(other.foods, foods));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Meal&&(identical(other.id, id) || other.id == id)&&(identical(other.journalId, journalId) || other.journalId == journalId)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalCaloriesGram, totalCaloriesGram) || other.totalCaloriesGram == totalCaloriesGram)&&(identical(other.totalProteinGram, totalProteinGram) || other.totalProteinGram == totalProteinGram)&&(identical(other.totalFatGram, totalFatGram) || other.totalFatGram == totalFatGram)&&(identical(other.totalSugarsGram, totalSugarsGram) || other.totalSugarsGram == totalSugarsGram)&&(identical(other.hasFoods, hasFoods) || other.hasFoods == hasFoods));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,totalCaloriesGram,totalProteinsGram,totalFatsGram,totalSugarsGram,const DeepCollectionEquality().hash(foods));
+int get hashCode => Object.hash(runtimeType,id,journalId,name,totalCaloriesGram,totalProteinGram,totalFatGram,totalSugarsGram,hasFoods);
 
 @override
 String toString() {
-  return 'Meal(id: $id, name: $name, totalCaloriesGram: $totalCaloriesGram, totalProteinsGram: $totalProteinsGram, totalFatsGram: $totalFatsGram, totalSugarsGram: $totalSugarsGram, foods: $foods)';
+  return 'Meal(id: $id, journalId: $journalId, name: $name, totalCaloriesGram: $totalCaloriesGram, totalProteinGram: $totalProteinGram, totalFatGram: $totalFatGram, totalSugarsGram: $totalSugarsGram, hasFoods: $hasFoods)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $MealCopyWith<$Res>  {
   factory $MealCopyWith(Meal value, $Res Function(Meal) _then) = _$MealCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, double totalCaloriesGram, double totalProteinsGram, double totalFatsGram, double totalSugarsGram, List<Food> foods
+ String id, String? journalId, String name, double totalCaloriesGram, double totalProteinGram, double totalFatGram, double totalSugarsGram, bool hasFoods
 });
 
 
@@ -63,16 +63,17 @@ class _$MealCopyWithImpl<$Res>
 
 /// Create a copy of Meal
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? totalCaloriesGram = null,Object? totalProteinsGram = null,Object? totalFatsGram = null,Object? totalSugarsGram = null,Object? foods = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? journalId = freezed,Object? name = null,Object? totalCaloriesGram = null,Object? totalProteinGram = null,Object? totalFatGram = null,Object? totalSugarsGram = null,Object? hasFoods = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,journalId: freezed == journalId ? _self.journalId : journalId // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,totalCaloriesGram: null == totalCaloriesGram ? _self.totalCaloriesGram : totalCaloriesGram // ignore: cast_nullable_to_non_nullable
-as double,totalProteinsGram: null == totalProteinsGram ? _self.totalProteinsGram : totalProteinsGram // ignore: cast_nullable_to_non_nullable
-as double,totalFatsGram: null == totalFatsGram ? _self.totalFatsGram : totalFatsGram // ignore: cast_nullable_to_non_nullable
+as double,totalProteinGram: null == totalProteinGram ? _self.totalProteinGram : totalProteinGram // ignore: cast_nullable_to_non_nullable
+as double,totalFatGram: null == totalFatGram ? _self.totalFatGram : totalFatGram // ignore: cast_nullable_to_non_nullable
 as double,totalSugarsGram: null == totalSugarsGram ? _self.totalSugarsGram : totalSugarsGram // ignore: cast_nullable_to_non_nullable
-as double,foods: null == foods ? _self.foods : foods // ignore: cast_nullable_to_non_nullable
-as List<Food>,
+as double,hasFoods: null == hasFoods ? _self.hasFoods : hasFoods // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -83,22 +84,17 @@ as List<Food>,
 
 
 class _Meal extends Meal {
-  const _Meal({required this.id, required this.name, required this.totalCaloriesGram, required this.totalProteinsGram, required this.totalFatsGram, required this.totalSugarsGram, required final  List<Food> foods}): _foods = foods,super._();
+  const _Meal({required this.id, this.journalId, required this.name, required this.totalCaloriesGram, required this.totalProteinGram, required this.totalFatGram, required this.totalSugarsGram, required this.hasFoods}): super._();
   
 
 @override final  String id;
+@override final  String? journalId;
 @override final  String name;
 @override final  double totalCaloriesGram;
-@override final  double totalProteinsGram;
-@override final  double totalFatsGram;
+@override final  double totalProteinGram;
+@override final  double totalFatGram;
 @override final  double totalSugarsGram;
- final  List<Food> _foods;
-@override List<Food> get foods {
-  if (_foods is EqualUnmodifiableListView) return _foods;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_foods);
-}
-
+@override final  bool hasFoods;
 
 /// Create a copy of Meal
 /// with the given fields replaced by the non-null parameter values.
@@ -110,16 +106,16 @@ _$MealCopyWith<_Meal> get copyWith => __$MealCopyWithImpl<_Meal>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Meal&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalCaloriesGram, totalCaloriesGram) || other.totalCaloriesGram == totalCaloriesGram)&&(identical(other.totalProteinsGram, totalProteinsGram) || other.totalProteinsGram == totalProteinsGram)&&(identical(other.totalFatsGram, totalFatsGram) || other.totalFatsGram == totalFatsGram)&&(identical(other.totalSugarsGram, totalSugarsGram) || other.totalSugarsGram == totalSugarsGram)&&const DeepCollectionEquality().equals(other._foods, _foods));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Meal&&(identical(other.id, id) || other.id == id)&&(identical(other.journalId, journalId) || other.journalId == journalId)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalCaloriesGram, totalCaloriesGram) || other.totalCaloriesGram == totalCaloriesGram)&&(identical(other.totalProteinGram, totalProteinGram) || other.totalProteinGram == totalProteinGram)&&(identical(other.totalFatGram, totalFatGram) || other.totalFatGram == totalFatGram)&&(identical(other.totalSugarsGram, totalSugarsGram) || other.totalSugarsGram == totalSugarsGram)&&(identical(other.hasFoods, hasFoods) || other.hasFoods == hasFoods));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,totalCaloriesGram,totalProteinsGram,totalFatsGram,totalSugarsGram,const DeepCollectionEquality().hash(_foods));
+int get hashCode => Object.hash(runtimeType,id,journalId,name,totalCaloriesGram,totalProteinGram,totalFatGram,totalSugarsGram,hasFoods);
 
 @override
 String toString() {
-  return 'Meal(id: $id, name: $name, totalCaloriesGram: $totalCaloriesGram, totalProteinsGram: $totalProteinsGram, totalFatsGram: $totalFatsGram, totalSugarsGram: $totalSugarsGram, foods: $foods)';
+  return 'Meal(id: $id, journalId: $journalId, name: $name, totalCaloriesGram: $totalCaloriesGram, totalProteinGram: $totalProteinGram, totalFatGram: $totalFatGram, totalSugarsGram: $totalSugarsGram, hasFoods: $hasFoods)';
 }
 
 
@@ -130,7 +126,7 @@ abstract mixin class _$MealCopyWith<$Res> implements $MealCopyWith<$Res> {
   factory _$MealCopyWith(_Meal value, $Res Function(_Meal) _then) = __$MealCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, double totalCaloriesGram, double totalProteinsGram, double totalFatsGram, double totalSugarsGram, List<Food> foods
+ String id, String? journalId, String name, double totalCaloriesGram, double totalProteinGram, double totalFatGram, double totalSugarsGram, bool hasFoods
 });
 
 
@@ -147,16 +143,17 @@ class __$MealCopyWithImpl<$Res>
 
 /// Create a copy of Meal
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? totalCaloriesGram = null,Object? totalProteinsGram = null,Object? totalFatsGram = null,Object? totalSugarsGram = null,Object? foods = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? journalId = freezed,Object? name = null,Object? totalCaloriesGram = null,Object? totalProteinGram = null,Object? totalFatGram = null,Object? totalSugarsGram = null,Object? hasFoods = null,}) {
   return _then(_Meal(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,journalId: freezed == journalId ? _self.journalId : journalId // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,totalCaloriesGram: null == totalCaloriesGram ? _self.totalCaloriesGram : totalCaloriesGram // ignore: cast_nullable_to_non_nullable
-as double,totalProteinsGram: null == totalProteinsGram ? _self.totalProteinsGram : totalProteinsGram // ignore: cast_nullable_to_non_nullable
-as double,totalFatsGram: null == totalFatsGram ? _self.totalFatsGram : totalFatsGram // ignore: cast_nullable_to_non_nullable
+as double,totalProteinGram: null == totalProteinGram ? _self.totalProteinGram : totalProteinGram // ignore: cast_nullable_to_non_nullable
+as double,totalFatGram: null == totalFatGram ? _self.totalFatGram : totalFatGram // ignore: cast_nullable_to_non_nullable
 as double,totalSugarsGram: null == totalSugarsGram ? _self.totalSugarsGram : totalSugarsGram // ignore: cast_nullable_to_non_nullable
-as double,foods: null == foods ? _self._foods : foods // ignore: cast_nullable_to_non_nullable
-as List<Food>,
+as double,hasFoods: null == hasFoods ? _self.hasFoods : hasFoods // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

@@ -1,6 +1,17 @@
 part of 'authentication_bloc.dart';
 
-@freezed
-abstract class AuthenticationEvent with _$AuthenticationEvent {
-  const factory AuthenticationEvent.userChanged(MyUser? myUser) = _UserChanged;
+sealed class AuthenticationEvent extends Equatable {
+  const AuthenticationEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class AuthenticationUserChanged extends AuthenticationEvent {
+  final MyUser? user;
+
+  const AuthenticationUserChanged(this.user);
+
+  @override
+  List<Object> get props => [];
 }

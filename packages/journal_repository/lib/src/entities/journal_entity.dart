@@ -1,27 +1,25 @@
-import 'package:journal_repository/src/utilities/timestamp_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'meal_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:journal_repository/src/utilities/timestamp_converter.dart';
 
 part 'journal_entity.g.dart';
 
 @JsonSerializable()
 class JournalEntity {
-  final String id;
-
   @TimestampConverter()
   final DateTime date;
 
-  @JsonKey(name: 'sugarsGoal')
+  @JsonKey(name: 'sugars_goal')
   final double sugarsGoal;
 
-  final List<MealEntity> meals;
+  @JsonKey(name: 'has_meals')
+  final bool hasMeals;
 
   JournalEntity({
-    required this.id,
     required this.date,
     required this.sugarsGoal,
-    required this.meals,
+    required this.hasMeals,
   });
 
   factory JournalEntity.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:journal_repository/src/entities/entities.dart';
-import 'food.dart';
 
 part 'meal.freezed.dart';
 
@@ -10,49 +9,49 @@ abstract class Meal with _$Meal {
 
   const factory Meal({
     required String id,
+    String? journalId,
     required String name,
     required double totalCaloriesGram,
-    required double totalProteinsGram,
-    required double totalFatsGram,
+    required double totalProteinGram,
+    required double totalFatGram,
     required double totalSugarsGram,
-    required List<Food> foods,
+    required bool hasFoods,
   }) = _Meal;
 
   static Meal empty() {
     return Meal(
       id: '',
-      name: '',
+      journalId: '',
+      name: 'N/A',
       totalCaloriesGram: 0,
-      totalProteinsGram: 0,
-      totalFatsGram: 0,
+      totalProteinGram: 0,
+      totalFatGram: 0,
       totalSugarsGram: 0,
-      foods: [],
+      hasFoods: false,
     );
   }
 
-  static Meal fromEntity(MealEntity entity) {
+  static Meal fromEntity(MealEntity entity, String id, String journalId) {
     return Meal(
-      id: entity.id,
+      id: id,
+      journalId: journalId,
       name: entity.name,
       totalCaloriesGram: entity.totalCaloriesGram,
-      totalProteinsGram: entity.totalProteinsGram,
-      totalFatsGram: entity.totalFatsGram,
+      totalProteinGram: entity.totalProteinGram,
+      totalFatGram: entity.totalFatGram,
       totalSugarsGram: entity.totalSugarsGram,
-      foods: entity.foods
-          .map((foodEntity) => Food.fromEntity(foodEntity))
-          .toList(),
+      hasFoods: entity.hasFoods,
     );
   }
 
   MealEntity toEntity() {
     return MealEntity(
-      id: id,
       name: name,
       totalCaloriesGram: totalCaloriesGram,
-      totalProteinsGram: totalProteinsGram,
-      totalFatsGram: totalFatsGram,
+      totalProteinGram: totalProteinGram,
+      totalFatGram: totalFatGram,
       totalSugarsGram: totalSugarsGram,
-      foods: foods.map((food) => food.toEntity()).toList(),
+      hasFoods: hasFoods,
     );
   }
 }

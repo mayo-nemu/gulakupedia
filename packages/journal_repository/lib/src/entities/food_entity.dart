@@ -4,36 +4,34 @@ part 'food_entity.g.dart';
 
 @JsonSerializable()
 class FoodEntity {
-  final String id;
-
   final String name;
 
-  @JsonKey(name: 'serving_weight_gram')
-  final double servingWeightGram;
+  @JsonKey(name: 'serving_size_gram')
+  final double servingSizeGram;
 
   @JsonKey(name: 'calories_100g')
-  final double calories100Gram;
+  final double calories100g;
 
-  @JsonKey(name: 'proteins_100g')
-  final double proteins100Gram;
+  @JsonKey(name: 'protein_100g')
+  final double protein100g;
 
-  @JsonKey(name: 'fats_100g')
-  final double fats100Gram;
+  @JsonKey(name: 'fat_100g')
+  final double fat100g;
 
   @JsonKey(name: 'sugars_100g')
-  final double sugars100Gram;
+  final double sugars100g;
 
-  final double quantity;
+  @JsonKey(name: 'quantity_gram')
+  final double quantityGram;
 
   FoodEntity({
-    required this.id,
     required this.name,
-    required this.servingWeightGram,
-    required this.calories100Gram,
-    required this.proteins100Gram,
-    required this.fats100Gram,
-    required this.sugars100Gram,
-    required this.quantity,
+    required this.servingSizeGram,
+    required this.calories100g,
+    required this.protein100g,
+    required this.fat100g,
+    required this.sugars100g,
+    required this.quantityGram,
   });
 
   factory FoodEntity.fromJson(Map<String, dynamic> json) =>

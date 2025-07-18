@@ -1,21 +1,26 @@
 part of 'authentication_bloc.dart';
 
-@freezed
-abstract class AuthenticationState with _$AuthenticationState {
-  const AuthenticationState._();
-  const factory AuthenticationState.authenticated(MyUser myUser) =
-      _Authenticated;
-  const factory AuthenticationState.unauthenticated() = _Unauthenticated;
-  const factory AuthenticationState.unknown() = _Unknown;
+enum AuthenticationStatus { authenticated, unauthenticated, unknown }
 
-  bool get isAuthenticated => this is _Authenticated;
-  bool get isUnauthenticated => this is _Unauthenticated;
-  bool get isUnknown => this is _Unknown;
+class AuthenticationState extends Equatable {
+  const AuthenticationState._({
+    this.status = AuthenticationStatus.unknown,
+    this.user,
+  });
 
-  MyUser? get userOrNull {
-    if (this case _Authenticated(:final myUser)) {
-      return myUser;
-    }
-    return null;
-  }
+  final AuthenticationStatus status;
+  final MyUser? user;
+
+  bool get isProfileComplete => user != null && user!.isProfileComplete;
+
+  const AuthenticationState.authenticated(MyUser myUser)
+    : this._(status: AuthenticationStatus.authenticated, user: myUser);
+
+  const AuthenticationState.unathenticated()
+    : this._(status: AuthenticationStatus.unauthenticated);
+
+  const AuthenticationState.unkown() : this._();
+
+  @override
+  List<Object> get props => [status];
 }

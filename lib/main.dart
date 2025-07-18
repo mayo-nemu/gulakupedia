@@ -5,10 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gulapedia/app.dart';
 import 'package:gulapedia/simple_bloc_observer.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Gulakupedia');
+  OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
+    OpenFoodFactsLanguage.ENGLISH,
+    OpenFoodFactsLanguage.INDONESIAN,
+  ];
+  OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.INDONESIA;
+
   Bloc.observer = SimpleBlocObserver();
   runApp(MainApp(FirebaseUserRepo()));
 }

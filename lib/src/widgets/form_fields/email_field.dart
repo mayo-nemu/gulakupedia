@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'base_form_field.dart';
+import 'base_text_field.dart';
 
 import 'package:gulapedia/src/utilities/form_validation.dart';
 
@@ -9,7 +9,7 @@ class EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseFormField(
+    return BaseTextField(
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       labelText: 'Email',

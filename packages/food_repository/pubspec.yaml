@@ -10,8 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  journal_repository:
+    path: ../journal_repository
+
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
+  openfoodfacts: ^3.23.0
 
 dev_dependencies:
   flutter_test:

@@ -8,18 +8,14 @@ part of 'journal_entity.dart';
 
 JournalEntity _$JournalEntityFromJson(Map<String, dynamic> json) =>
     JournalEntity(
-      id: json['id'] as String,
       date: const TimestampConverter().fromJson(json['date'] as Timestamp),
-      sugarsGoal: (json['sugarsGoal'] as num).toDouble(),
-      meals: (json['meals'] as List<dynamic>)
-          .map((e) => MealEntity.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      sugarsGoal: (json['sugars_goal'] as num).toDouble(),
+      hasMeals: json['has_meals'] as bool,
     );
 
 Map<String, dynamic> _$JournalEntityToJson(JournalEntity instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'date': const TimestampConverter().toJson(instance.date),
-      'sugarsGoal': instance.sugarsGoal,
-      'meals': instance.meals,
+      'sugars_goal': instance.sugarsGoal,
+      'has_meals': instance.hasMeals,
     };

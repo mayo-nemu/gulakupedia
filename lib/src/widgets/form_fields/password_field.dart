@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'base_form_field.dart';
+import 'base_text_field.dart';
 
 import 'package:gulapedia/src/utilities/form_validation.dart';
 
@@ -20,7 +20,7 @@ class _PasswordFieldState extends State<PasswordField> {
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
-    return BaseFormField(
+    return BaseTextField(
       obscureText: _obscureText,
       controller: widget.controller,
       keyboardType: TextInputType.visiblePassword,

@@ -10,7 +10,7 @@ class TAppText {
     ),
     titleLarge: TextStyle(
       fontSize: 24,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       letterSpacing: -1.0,
       color: Colors.black,
     ),
@@ -22,6 +22,18 @@ class TAppText {
     ),
     titleSmall: TextStyle(
       fontSize: 20,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -1.0,
+      color: Colors.black,
+    ),
+    headlineMedium: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -1.0,
+      color: Colors.black,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       letterSpacing: -1.0,
       color: Colors.black,

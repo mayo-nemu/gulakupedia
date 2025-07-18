@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Journal {
 
- String get id; DateTime get date; double get sugarsGoal; List<Meal> get meals;
+ String get id; DateTime get date; double get sugarsGoal; bool get hasMeals;
 /// Create a copy of Journal
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $JournalCopyWith<Journal> get copyWith => _$JournalCopyWithImpl<Journal>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Journal&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.sugarsGoal, sugarsGoal) || other.sugarsGoal == sugarsGoal)&&const DeepCollectionEquality().equals(other.meals, meals));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Journal&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.sugarsGoal, sugarsGoal) || other.sugarsGoal == sugarsGoal)&&(identical(other.hasMeals, hasMeals) || other.hasMeals == hasMeals));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,date,sugarsGoal,const DeepCollectionEquality().hash(meals));
+int get hashCode => Object.hash(runtimeType,id,date,sugarsGoal,hasMeals);
 
 @override
 String toString() {
-  return 'Journal(id: $id, date: $date, sugarsGoal: $sugarsGoal, meals: $meals)';
+  return 'Journal(id: $id, date: $date, sugarsGoal: $sugarsGoal, hasMeals: $hasMeals)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $JournalCopyWith<$Res>  {
   factory $JournalCopyWith(Journal value, $Res Function(Journal) _then) = _$JournalCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime date, double sugarsGoal, List<Meal> meals
+ String id, DateTime date, double sugarsGoal, bool hasMeals
 });
 
 
@@ -63,13 +63,13 @@ class _$JournalCopyWithImpl<$Res>
 
 /// Create a copy of Journal
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? sugarsGoal = null,Object? meals = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? sugarsGoal = null,Object? hasMeals = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,sugarsGoal: null == sugarsGoal ? _self.sugarsGoal : sugarsGoal // ignore: cast_nullable_to_non_nullable
-as double,meals: null == meals ? _self.meals : meals // ignore: cast_nullable_to_non_nullable
-as List<Meal>,
+as double,hasMeals: null == hasMeals ? _self.hasMeals : hasMeals // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -80,19 +80,13 @@ as List<Meal>,
 
 
 class _Journal extends Journal {
-  const _Journal({required this.id, required this.date, required this.sugarsGoal, required final  List<Meal> meals}): _meals = meals,super._();
+  const _Journal({required this.id, required this.date, required this.sugarsGoal, required this.hasMeals}): super._();
   
 
 @override final  String id;
 @override final  DateTime date;
 @override final  double sugarsGoal;
- final  List<Meal> _meals;
-@override List<Meal> get meals {
-  if (_meals is EqualUnmodifiableListView) return _meals;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_meals);
-}
-
+@override final  bool hasMeals;
 
 /// Create a copy of Journal
 /// with the given fields replaced by the non-null parameter values.
@@ -104,16 +98,16 @@ _$JournalCopyWith<_Journal> get copyWith => __$JournalCopyWithImpl<_Journal>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Journal&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.sugarsGoal, sugarsGoal) || other.sugarsGoal == sugarsGoal)&&const DeepCollectionEquality().equals(other._meals, _meals));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Journal&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.sugarsGoal, sugarsGoal) || other.sugarsGoal == sugarsGoal)&&(identical(other.hasMeals, hasMeals) || other.hasMeals == hasMeals));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,date,sugarsGoal,const DeepCollectionEquality().hash(_meals));
+int get hashCode => Object.hash(runtimeType,id,date,sugarsGoal,hasMeals);
 
 @override
 String toString() {
-  return 'Journal(id: $id, date: $date, sugarsGoal: $sugarsGoal, meals: $meals)';
+  return 'Journal(id: $id, date: $date, sugarsGoal: $sugarsGoal, hasMeals: $hasMeals)';
 }
 
 
@@ -124,7 +118,7 @@ abstract mixin class _$JournalCopyWith<$Res> implements $JournalCopyWith<$Res> {
   factory _$JournalCopyWith(_Journal value, $Res Function(_Journal) _then) = __$JournalCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime date, double sugarsGoal, List<Meal> meals
+ String id, DateTime date, double sugarsGoal, bool hasMeals
 });
 
 
@@ -141,13 +135,13 @@ class __$JournalCopyWithImpl<$Res>
 
 /// Create a copy of Journal
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? sugarsGoal = null,Object? meals = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? sugarsGoal = null,Object? hasMeals = null,}) {
   return _then(_Journal(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,sugarsGoal: null == sugarsGoal ? _self.sugarsGoal : sugarsGoal // ignore: cast_nullable_to_non_nullable
-as double,meals: null == meals ? _self._meals : meals // ignore: cast_nullable_to_non_nullable
-as List<Meal>,
+as double,hasMeals: null == hasMeals ? _self.hasMeals : hasMeals // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

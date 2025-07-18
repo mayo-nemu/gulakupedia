@@ -11,6 +11,7 @@ class TAppTheme {
     colorScheme: TAppColors.lightTheme,
     useMaterial3: true,
     brightness: Brightness.light,
+    fontFamily: 'Poppins',
     textTheme: TAppText.lightTheme,
     elevatedButtonTheme: TElevatedButton.lightTheme,
     popupMenuTheme: PopupMenuThemeData(
