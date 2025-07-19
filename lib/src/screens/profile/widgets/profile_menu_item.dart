@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProfileMenuItem extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String text;
   final VoidCallback onTap;
   final Color color;
   const ProfileMenuItem({
-    required this.icon,
+    this.icon,
     required this.text,
     required this.onTap,
     this.color = Colors.black87,

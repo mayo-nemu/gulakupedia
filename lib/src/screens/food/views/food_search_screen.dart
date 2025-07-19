@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_repository/food_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/screens/food/blocs/food_search_bloc/food_search_bloc.dart';
-import 'package:gulapedia/src/screens/food/views/barcode_scanner_screen.dart';
 import 'package:gulapedia/src/utilities/get_sugars_grade.dart';
 import 'package:gulapedia/src/widgets/layout_appbar.dart';
 import 'package:journal_repository/journal_repository.dart';
-import 'package:gulapedia/src/utilities/format_double_to_string.dart';
+import 'package:gulapedia/src/utilities/double_to_string.dart';
 
 class FoodSearchScreen extends StatefulWidget {
   const FoodSearchScreen({
@@ -16,17 +14,39 @@ class FoodSearchScreen extends StatefulWidget {
     required this.journalId,
     required this.mealId,
     required this.mealName,
+    this.barcode,
+    required this.sugarsGoal,
+    required this.sugarsTotal,
   });
+
   final String journalId;
   final String mealId;
   final String mealName;
+  final String? barcode;
+  final double sugarsGoal;
+  final double sugarsTotal;
 
   @override
   State<FoodSearchScreen> createState() => _FoodSearchScreenState();
 }
 
 class _FoodSearchScreenState extends State<FoodSearchScreen> {
+  late FoodSearchBloc _foodSearchBloc;
+  bool _lastSearchWasByBarcode = false;
+
   final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _foodSearchBloc = context.read<FoodSearchBloc>();
+
+    if (widget.barcode != null) {
+      _foodSearchBloc.add(SearchByBarcode(widget.barcode));
+      _searchController.text = widget.barcode!;
+      _lastSearchWasByBarcode = true;
+    }
+  }
 
   @override
   void dispose() {
@@ -36,121 +56,117 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FoodSearchBloc>(
-      create: (context) => FoodSearchBloc(OpenFoodFactsRepository()),
-      child: BlocBuilder<FoodSearchBloc, FoodSearchState>(
-        builder: (context, state) {
-          return LayoutAppbar(
-            title: widget.mealName,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(85),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 25),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _searchController,
+    return BlocBuilder<FoodSearchBloc, FoodSearchState>(
+      builder: (context, state) {
+        return LayoutAppbar(
+          title: widget.mealName,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(85),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 25),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
 
-                            decoration: InputDecoration(
-                              isDense: true,
-                              hintText: 'Makan apa hari ini?',
-                              prefixIcon: Icon(
-                                Icons.search,
-                                size: 32,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  width: 1.25,
-                                  color: Colors.grey,
-                                ),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            hintText: 'Makan apa hari ini?',
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 32,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide(
+                                width: 1.25,
+                                color: Colors.grey,
                               ),
                             ),
-                            onSubmitted: (query) {
-                              if (query.isNotEmpty) {
-                                context.read<FoodSearchBloc>().add(
-                                  SearchByQuery(query),
-                                );
-                              } else {
-                                context.read<FoodSearchBloc>().add(
-                                  ClearSearch(),
-                                );
-                              }
-                            },
+                          ),
+                          onSubmitted: (query) {
+                            if (query.isNotEmpty) {
+                              context.read<FoodSearchBloc>().add(
+                                SearchByQuery(query),
+                              );
+                              _lastSearchWasByBarcode = false;
+                            } else {
+                              context.read<FoodSearchBloc>().add(ClearSearch());
+                              _lastSearchWasByBarcode = false;
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        child: IconButton(
+                          onPressed: () async {
+                            context.pushReplacementNamed(
+                              RoutesName.scanBarcode,
+                              pathParameters: {
+                                'journalId': widget.journalId,
+                                'mealId': widget.mealId,
+                              },
+                              queryParameters: {'mealName': widget.mealName},
+                              extra: {
+                                'sugarsGoal': widget.sugarsGoal,
+                                'sugarsTotal': widget.sugarsTotal,
+                              },
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.barcode_reader,
+                            color: Colors.white,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          child: IconButton(
-                            onPressed: () async {
-                              // Navigate to the barcode scanner screen
-                              final String? scannedBarcode =
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BarcodeScannerScreen(),
-                                    ),
-                                  );
-
-                              if (scannedBarcode != null &&
-                                  scannedBarcode.isNotEmpty) {
-                                // Dispatch the SearchByBarcode event with the scanned barcode
-                                // context.read<FoodSearchBloc>().add(
-                                //       SearchByBarcode(scannedBarcode),
-                                //     );
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.barcode_reader,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            bottomNavigationAction: Padding(
-              padding: const EdgeInsets.fromLTRB(72, 32, 72, 64),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (state.status == FoodSearchStatus.loaded &&
-                      state.selectedFoods.isNotEmpty) {
-                    context.pushNamed(
-                      RoutesName.konfirmasiMenu,
-                      pathParameters: {
-                        'journalId': widget.journalId,
-                        'mealId': widget.mealId,
-                      },
-                      queryParameters: {'mealName': widget.mealName},
-                      extra: state.selectedFoods,
-                    );
-                  }
-                },
-                child: Text(
-                  'Simpan ${state.selectedFoods.isNotEmpty ? '(${state.selectedFoods.length})' : ''}',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge!.copyWith(color: Colors.white),
-                ),
+          ),
+          bottomNavigationAction: Padding(
+            padding: const EdgeInsets.fromLTRB(72, 32, 72, 64),
+            child: ElevatedButton(
+              onPressed: () {
+                if (state.status == FoodSearchStatus.loaded &&
+                    state.selectedFoods.isNotEmpty) {
+                  context.pushNamed(
+                    RoutesName.konfirmasiMenu,
+                    pathParameters: {
+                      'journalId': widget.journalId,
+                      'mealId': widget.mealId,
+                    },
+                    queryParameters: {'mealName': widget.mealName},
+                    extra: {
+                      'sugarsGoal': widget.sugarsGoal,
+                      'sugarsTotal': widget.sugarsTotal,
+                      'foods': state.selectedFoods,
+                    },
+                  );
+                }
+              },
+              child: Text(
+                'Simpan ${state.selectedFoods.isNotEmpty ? '(${state.selectedFoods.length})' : ''}',
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(color: Colors.white),
               ),
             ),
-            child: _buildSearchResults(context, state),
-          );
-        },
-      ),
+          ),
+          child: _buildSearchResults(context, state),
+        );
+      },
     );
   }
 
@@ -173,7 +189,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Text(
-                '${formatDoubleToString(sugarsTotal)} g',
+                '${doubleToString(sugarsTotal)} g',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
@@ -212,6 +228,25 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
         );
       case FoodSearchStatus.loaded:
         if (state.results == null || state.results!.isEmpty) {
+          if (_lastSearchWasByBarcode && widget.barcode != null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Tidak ada hasil untuk barcode ini. 😔'),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Barcode: ${widget.barcode}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Coba cari dengan nama makanan atau scan barcode lain.',
+                  ),
+                ],
+              ),
+            );
+          }
           return const Center(child: Text('Tidak ada hasil pencarian.'));
         }
         return Column(

@@ -22,5 +22,5 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.unkown() : this._();
 
   @override
-  List<Object> get props => [status];
+  List<Object?> get props => [status, user];
 }

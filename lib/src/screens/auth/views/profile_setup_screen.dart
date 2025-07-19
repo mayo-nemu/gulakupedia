@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:gulapedia/src/widgets/form_fields/my_form_fields.dart';
-import 'package:gulapedia/src/routes/routes_name.dart';
 
 import 'package:gulapedia/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:gulapedia/src/screens/auth/blocs/sign_up_bloc/sign_up_bloc.dart';
@@ -74,7 +72,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       child: BlocConsumer<SignUpBloc, SignUpState>(
         listener: (context, state) {
           if (state is SignUpSuccess) {
-            context.goNamed(RoutesName.catatanHarian);
           } else if (state is SignUpFailure) {
             ScaffoldMessenger.of(
               context,

@@ -20,17 +20,27 @@ class FirebaseUserRepo implements UserRepository {
 
   @override
   Stream<MyUser?> get user {
-    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) {
       if (firebaseUser == null) {
-        yield MyUser.empty();
+        // If no Firebase user, emit an empty MyUser
+        return Stream.value(MyUser.empty());
       } else {
-        yield await usersCollection
+        // Listen to real-time changes of the user's document in Firestore
+        return usersCollection
             .doc(firebaseUser.uid)
-            .get()
-            .then(
-              (value) =>
-                  MyUser.fromEntity(MyUserEntity.fromJson(value.data()!)),
-            );
+            .snapshots() // <--- CHANGE IS HERE: .snapshots() instead of .get()
+            .map((docSnapshot) {
+              if (docSnapshot.exists && docSnapshot.data() != null) {
+                return MyUser.fromEntity(
+                  MyUserEntity.fromJson(docSnapshot.data()!),
+                );
+              } else {
+                return MyUser.empty().copyWith(
+                  userId: firebaseUser.uid,
+                  email: firebaseUser.email ?? '',
+                ); // Basic user
+              }
+            });
       }
     });
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gulapedia/src/routes/routes_name.dart';
-import 'package:gulapedia/src/utilities/format_double_to_string.dart';
+import 'package:gulapedia/src/utilities/double_to_string.dart';
 import 'package:gulapedia/src/utilities/get_sugars_grade.dart';
 import 'package:journal_repository/journal_repository.dart';
 
@@ -30,7 +30,7 @@ class FoodList extends StatelessWidget {
       title: Text(food.name, style: Theme.of(context).textTheme.bodyLarge),
       subtitle: getSugarGrade(sugarsTotal),
       trailing: Text(
-        '${formatDoubleToString(sugarsTotal)} g',
+        '${doubleToString(sugarsTotal)} g',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       onTap: () => context.pushNamed(RoutesName.makanan, extra: food),

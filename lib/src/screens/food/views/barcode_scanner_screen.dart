@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/widgets/layout_appbar.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class BarcodeScannerScreen extends StatefulWidget {
-  const BarcodeScannerScreen({super.key});
+  const BarcodeScannerScreen({
+    super.key,
+    required this.journalId,
+    required this.mealId,
+    required this.mealName,
+    required this.sugarsGoal,
+    required this.sugarsTotal,
+  });
+
+  final String journalId;
+  final String mealId;
+  final String mealName;
+  final double sugarsGoal;
+  final double sugarsTotal;
 
   @override
   State<BarcodeScannerScreen> createState() => _BarcodeScannerScreenState();
@@ -13,7 +28,7 @@ class BarcodeScannerScreen extends StatefulWidget {
 class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   MobileScannerController cameraController = MobileScannerController();
   bool _permissionGranted = false;
-  bool _isDetecting = true; // To prevent multiple detections quickly
+  bool _isDetecting = true;
 
   @override
   void initState() {
@@ -27,15 +42,13 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
       setState(() {
         _permissionGranted = true;
       });
-      // Optionally start camera immediately if permission granted
+
       cameraController.start();
     } else {
-      // Handle cases where permission is denied
-      // You might want to show a dialog or message to the user
       setState(() {
         _permissionGranted = false;
       });
-      // Show an alert or pop the screen if permission is critical
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -45,7 +58,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
             duration: Duration(seconds: 3),
           ),
         );
-        Navigator.pop(context); // Go back if no permission
+        Navigator.pop(context);
       }
     }
   }
@@ -53,9 +66,24 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   @override
   Widget build(BuildContext context) {
     if (!_permissionGranted) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Barcode Scanner')),
-        body: const Center(
+      return LayoutAppbar(
+        title: 'Barcode Scanner',
+        back: () {
+          context.pushReplacementNamed(
+            RoutesName.tambahMenu,
+            pathParameters: {
+              'journalId': widget.journalId,
+              'mealId': widget.mealId,
+            },
+            queryParameters: {'mealName': widget.mealName},
+            extra: {
+              'sugarsGoal': widget.sugarsGoal,
+              'sugarsTotal': widget.sugarsTotal,
+            },
+          );
+        },
+
+        child: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -88,7 +116,21 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                 _isDetecting = false;
               });
               debugPrint('Barcode found! $scannedValue');
-              Navigator.pop(context, scannedValue);
+              context.pushReplacementNamed(
+                RoutesName.tambahMenu,
+                pathParameters: {
+                  'journalId': widget.journalId,
+                  'mealId': widget.mealId,
+                },
+                queryParameters: {
+                  'mealName': widget.mealName,
+                  'barcode': scannedValue,
+                },
+                extra: {
+                  'sugarsGoal': widget.sugarsGoal,
+                  'sugarsTotal': widget.sugarsTotal,
+                },
+              );
             }
           }
         },

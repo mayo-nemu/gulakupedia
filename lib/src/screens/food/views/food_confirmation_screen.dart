@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gulapedia/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/widgets/layout_appbar.dart';
 import 'package:journal_repository/journal_repository.dart';
 import 'package:gulapedia/src/screens/food/blocs/food_save_bloc/food_save_bloc.dart';
-import 'package:gulapedia/src/utilities/format_double_to_string.dart';
+import 'package:gulapedia/src/utilities/double_to_string.dart';
 
 class FoodConfirmationScreen extends StatefulWidget {
   const FoodConfirmationScreen({
     super.key,
-    required this.userId,
     required this.journalId,
     required this.mealId,
+    required this.mealName,
+    required this.sugarsGoal,
+    required this.sugarsTotal,
     required this.foods,
   });
 
-  final String userId;
   final String journalId;
   final String mealId;
+  final String mealName;
+  final double sugarsGoal;
+  final double sugarsTotal;
   final List<Food> foods;
 
   @override
@@ -25,119 +31,137 @@ class FoodConfirmationScreen extends StatefulWidget {
 }
 
 class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
-  // A map to hold controllers for each food item's quantity, keyed by food ID
+  late String _userId;
+  late FoodSaveBloc _foodSaveBloc;
+
   final Map<String, TextEditingController> _quantityControllers = {};
 
-  // Helper method to update the quantity in the Bloc
-  void _updateFoodQuantity(Food food, String value) {}
+  @override
+  void initState() {
+    super.initState();
+    _userId = context.read<AuthenticationBloc>().state.user!.userId;
+    _foodSaveBloc = context.read<FoodSaveBloc>();
 
-  // Helper method to remove a food from the Bloc
+    for (var food in widget.foods) {
+      _quantityControllers[food.id] = TextEditingController(
+        text: doubleToString(food.quantityGram),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _quantityControllers.forEach((key, controller) => controller.dispose());
     super.dispose();
   }
 
+  void _updateFoodQuantity(Food food, String value) {
+    final newQuantity = double.tryParse(value) ?? food.quantityGram;
+
+    _foodSaveBloc.add(
+      FoodQuantityUpdated(
+        updatedFood: food.copyWith(quantityGram: newQuantity),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FoodSaveBloc>(
-      create: (context) => FoodSaveBloc(FirebaseJournalRepo()),
-      child: BlocListener<FoodSaveBloc, FoodSaveState>(
-        listener: (context, state) {
-          if (state is FoodSaveSuccess) {
-            context.pop();
-            context.pop();
-          } else if (state is FoodSaveFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Failed to save foods: ${state.errorMessage}'),
-              ),
-            );
-          }
-        },
-        child: BlocBuilder<FoodSaveBloc, FoodSaveState>(
-          // Listen to FoodSaveBloc for the list of foods
-          builder: (context, state) {
-            return LayoutAppbar(
-              title: 'Atur Jumlah Asupan',
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+    return BlocConsumer<FoodSaveBloc, FoodSaveState>(
+      listener: (context, state) {
+        if (state.status == FoodSaveStatus.success) {
+          context.goNamed(
+            RoutesName.asupan,
+            pathParameters: {'journalId': widget.journalId},
+            queryParameters: {'mealName': widget.mealName},
+            extra: {
+              'sugarsGoal': widget.sugarsGoal,
+              'sugarsTotal': widget.sugarsTotal,
+            },
+          );
+        } else if (state.status == FoodSaveStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to save foods: ${state.errorMessage}'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return LayoutAppbar(
+          title: 'Atur Jumlah Asupan',
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              'Asupan',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ), // "Intake"
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              'Berat (g)',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                          ), // "Weight (g)"
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              'Gula (g)',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.end,
-                            ),
-                          ), // "Sugar (g)"
-                        ],
-                      ),
+                      const Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Asupan',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ), // "Intake"
+                      const Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Berat (g)',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ), // "Weight (g)"
+                      const Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Gula (g)',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.end,
+                        ),
+                      ), // "Sugar (g)"
                     ],
                   ),
-                ),
+                ],
               ),
-              bottomNavigationAction: Padding(
-                padding: const EdgeInsets.fromLTRB(72, 0, 72, 64),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Dispatch AddFoodtoMenu event with the current selected foods from FoodSaveBloc
-                    if (widget.foods.isNotEmpty) {
-                      context.read<FoodSaveBloc>().add(
-                        AddFoodtoMenu(
-                          widget.foods,
-                          widget.userId,
-                          widget.journalId,
-                          widget.mealId,
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('No foods to save!')),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Selesai', // "Done"
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelLarge!.copyWith(color: Colors.white),
-                  ),
-                ),
+            ),
+          ),
+          bottomNavigationAction: Padding(
+            padding: const EdgeInsets.fromLTRB(72, 0, 72, 64),
+            child: ElevatedButton(
+              onPressed: () {
+                if (widget.foods.isNotEmpty) {
+                  context.read<FoodSaveBloc>().add(
+                    AddFoodtoMenu(
+                      widget.foods,
+                      _userId,
+                      widget.journalId,
+                      widget.mealId,
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('No foods to save!')),
+                  );
+                }
+              },
+              child: Text(
+                'Selesai', // "Done"
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(color: Colors.white),
               ),
-              child: widget.foods.isEmpty
-                  ? const Center(
-                      child: Text('No foods selected. Go back to search.'),
-                    )
-                  : _buildFoodList(context, foods: widget.foods),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+          child: widget.foods.isEmpty
+              ? const Center(
+                  child: Text('No foods selected. Go back to search.'),
+                )
+              : _buildFoodList(context, foods: widget.foods),
+        );
+      },
     );
   }
 
@@ -183,9 +207,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
                           8,
                         ), // Rounded corners
                         borderSide: BorderSide(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.outline, // Use theme color for border
+                          color: Theme.of(context).colorScheme.outline,
                           width: 1.0,
                         ),
                       ),
@@ -196,7 +218,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
               Expanded(
                 flex: 1,
                 child: Text(
-                  '${formatDoubleToString(sugarsTotal)} g',
+                  '${doubleToString(sugarsTotal)} g',
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -214,12 +236,12 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
         final thisFood = foods[index];
         if (!_quantityControllers.containsKey(thisFood.id)) {
           _quantityControllers[thisFood.id] = TextEditingController(
-            text: formatDoubleToString(thisFood.quantityGram),
+            text: doubleToString(thisFood.quantityGram),
           );
         } else {
           // Update controller text if quantityGram changed from external source
           final currentText = _quantityControllers[thisFood.id]!.text;
-          final newQuantityText = formatDoubleToString(thisFood.quantityGram);
+          final newQuantityText = doubleToString(thisFood.quantityGram);
           if (currentText != newQuantityText) {
             _quantityControllers[thisFood.id]!.text = newQuantityText;
             _quantityControllers[thisFood.id]!.selection =

@@ -19,6 +19,10 @@ class AuthenticationBloc
     });
     on<AuthenticationUserChanged>((event, emit) {
       if (event.user != null && event.user != MyUser.empty()) {
+        final newState = AuthenticationState.authenticated(event.user!);
+        print(
+          'AuthenticationBloc: User changed to authenticated. Is profile complete? ${newState.isProfileComplete}',
+        );
         emit(AuthenticationState.authenticated(event.user!));
       } else {
         emit(const AuthenticationState.unathenticated());

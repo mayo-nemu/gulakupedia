@@ -1,4 +1,4 @@
-String formatDoubleToString(double value) {
+String doubleToString(double value) {
   // Convert the double to a string with a maximum of two decimal places.
   String strValue = value.toStringAsFixed(2);
 

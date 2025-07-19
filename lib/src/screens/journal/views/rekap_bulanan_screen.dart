@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gulapedia/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:gulapedia/src/widgets/layout_appbar.dart';
 import 'package:journal_repository/journal_repository.dart';
 import 'package:collection/collection.dart'; // For firstWhereOrNull
@@ -9,16 +10,16 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/screens/journal/blocs/journal_bloc/journal_bloc.dart';
 
-class CatatanBulananScreen extends StatefulWidget {
-  const CatatanBulananScreen({super.key, required this.userId, this.date});
-  final String userId;
+class RekapBulananScreen extends StatefulWidget {
+  const RekapBulananScreen({super.key, this.date});
   final DateTime? date;
 
   @override
-  State<CatatanBulananScreen> createState() => _CatatanBulananScreenState();
+  State<RekapBulananScreen> createState() => _RekapBulananScreenState();
 }
 
-class _CatatanBulananScreenState extends State<CatatanBulananScreen> {
+class _RekapBulananScreenState extends State<RekapBulananScreen> {
+  late String _userId;
   late JournalBloc _journalBloc;
   late DateTime _focusedDay;
   late DateTime _selectedDay;
@@ -27,10 +28,14 @@ class _CatatanBulananScreenState extends State<CatatanBulananScreen> {
   @override
   void initState() {
     super.initState();
+    _userId = context.read<AuthenticationBloc>().state.user!.userId;
+
+    _journalBloc = context.read<JournalBloc>();
+
     _focusedDay = widget.date ?? DateTime.now();
     _selectedDay = _focusedDay;
-    _journalBloc = JournalBloc(FirebaseJournalRepo());
-    _journalBloc.add(GetThisMonthJournal(widget.userId, _focusedDay));
+
+    _journalBloc.add(GetThisMonthJournals(_userId, _focusedDay));
   }
 
   @override
@@ -112,7 +117,7 @@ class _CatatanBulananScreenState extends State<CatatanBulananScreen> {
         onPageChanged: (focusedDay) {
           _focusedDay = focusedDay;
           // When the month changes, fetch journals for the new month
-          _journalBloc.add(GetThisMonthJournal(widget.userId, focusedDay));
+          _journalBloc.add(GetThisMonthJournals(_userId, focusedDay));
         },
         // Event markers for days with meals
         eventLoader: (day) {

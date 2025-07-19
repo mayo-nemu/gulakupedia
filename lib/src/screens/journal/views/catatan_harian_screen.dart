@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gulapedia/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:gulapedia/src/routes/routes_name.dart';
 
 import 'package:gulapedia/src/screens/journal/blocs/journal_bloc/journal_bloc.dart';
@@ -11,8 +12,7 @@ part 'package:gulapedia/src/screens/journal/widgets/journal_info_card.dart';
 part 'package:gulapedia/src/screens/journal/widgets/meal_info_card.dart';
 
 class CatatanHarianScreen extends StatefulWidget {
-  const CatatanHarianScreen({super.key, required this.userId, this.date});
-  final String userId;
+  const CatatanHarianScreen({super.key, this.date});
   final DateTime? date;
 
   @override
@@ -20,15 +20,18 @@ class CatatanHarianScreen extends StatefulWidget {
 }
 
 class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
+  late String _userId;
   late JournalBloc _journalBloc;
+
   late DateTime _currentDisplayDate;
 
   @override
   void initState() {
     super.initState();
+    _userId = context.read<AuthenticationBloc>().state.user!.userId;
+    _journalBloc = context.read<JournalBloc>();
     _currentDisplayDate = widget.date ?? DateTime.now();
-    _journalBloc = JournalBloc(FirebaseJournalRepo());
-    _journalBloc.add(GetThisJournal(widget.userId, _currentDisplayDate));
+    _journalBloc.add(GetThisJournal(_userId, _currentDisplayDate));
   }
 
   @override
@@ -36,7 +39,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     super.didUpdateWidget(oldWidget);
     // Only refresh if the date changes
     if (_currentDisplayDate != oldWidget.date) {
-      _journalBloc.add(GetThisJournal(widget.userId, _currentDisplayDate));
+      _journalBloc.add(GetThisJournal(_userId, _currentDisplayDate));
     }
   }
 
@@ -55,7 +58,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     setState(() {
       _currentDisplayDate = selectedDay;
     });
-    _journalBloc.add(GetThisJournal(widget.userId, selectedDay));
+    _journalBloc.add(GetThisJournal(_userId, selectedDay));
   }
 
   @override

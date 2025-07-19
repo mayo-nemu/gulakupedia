@@ -1,3 +1,5 @@
+// lib/src/screens/food/blocs/food_save_bloc/food_save_event.dart
+
 part of 'food_save_bloc.dart';
 
 sealed class FoodSaveEvent extends Equatable {
@@ -5,6 +7,15 @@ sealed class FoodSaveEvent extends Equatable {
 
   @override
   List<Object> get props => [];
+}
+
+class FoodQuantityUpdated extends FoodSaveEvent {
+  final Food updatedFood;
+
+  const FoodQuantityUpdated({required this.updatedFood});
+
+  @override
+  List<Object> get props => [updatedFood];
 }
 
 class AddFoodtoMenu extends FoodSaveEvent {

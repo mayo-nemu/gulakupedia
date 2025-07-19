@@ -13,9 +13,9 @@ class Destination {
   });
 }
 
-class LayoutScaffold extends StatelessWidget {
+class LayoutNavbar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
-  LayoutScaffold({required this.navigationShell, super.key});
+  LayoutNavbar({required this.navigationShell, super.key});
 
   final destinations = [
     Destination(

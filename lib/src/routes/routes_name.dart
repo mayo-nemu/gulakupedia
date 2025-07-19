@@ -13,6 +13,7 @@ class RoutesName {
   static const String updatePassword = 'update-password';
   static const String asupan = 'asupan';
   static const String tambahMenu = 'tambah-menu';
+  static const String scanBarcode = 'scan-barcode';
   static const String konfirmasiMenu = 'konfirmasi-menu';
   static const String makanan = 'makanan';
 }

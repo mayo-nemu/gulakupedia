@@ -16,7 +16,6 @@ class ProfileOptionScreen extends StatelessWidget {
         child: Column(
           children: [
             ProfileMenuItem(
-              icon: Icons.abc_outlined,
               text: 'Ubah kata sandi',
               onTap: () {
                 context.pushNamed(RoutesName.updatePassword);
@@ -24,7 +23,6 @@ class ProfileOptionScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             ProfileMenuItem(
-              icon: Icons.abc_outlined,
               text: 'Ubah data profil',
               onTap: () {
                 context.pushNamed(RoutesName.updateProfil);

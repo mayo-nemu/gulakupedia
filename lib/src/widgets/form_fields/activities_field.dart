@@ -8,9 +8,9 @@ class ActivitiesField extends StatelessWidget {
   final List<DropdownOption> options = const [
     DropdownOption(label: 'Sedentari', value: 'sedentary'),
     DropdownOption(label: 'Aktif Ringan', value: 'lightly active'),
-    DropdownOption(label: 'Cukup Aktif', value: 'fairly active'),
-    DropdownOption(label: 'Aktif', value: 'active'),
-    DropdownOption(label: 'Sangat Aktif', value: 'very active'),
+    DropdownOption(label: 'Cukup Aktif', value: 'moderately active'),
+    DropdownOption(label: 'Aktif', value: 'very active'),
+    DropdownOption(label: 'Sangat Aktif', value: 'extremely active'),
   ];
 
   @override

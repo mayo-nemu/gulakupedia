@@ -65,7 +65,7 @@ class JournalBloc extends Bloc<JournalEvent, JournalState> {
     });
 
     // New event handler for GetThisMonthJournal
-    on<GetThisMonthJournal>((event, emit) async {
+    on<GetThisMonthJournals>((event, emit) async {
       emit(state.copyWith(status: JournalStatus.loading));
 
       try {

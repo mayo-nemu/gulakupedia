@@ -5,6 +5,7 @@ class LayoutAppbar extends StatelessWidget {
   const LayoutAppbar({
     super.key,
     required this.title,
+    this.back,
     this.actions,
     this.bottom,
     required this.child,
@@ -12,6 +13,7 @@ class LayoutAppbar extends StatelessWidget {
   });
 
   final String title;
+  final void Function()? back;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
   final Widget child;
@@ -26,7 +28,11 @@ class LayoutAppbar extends StatelessWidget {
         shadowColor: Colors.black38,
         leading: IconButton(
           onPressed: () {
-            context.pop();
+            if (back != null) {
+              back!();
+            } else {
+              context.pop();
+            }
           },
           icon: Icon(Icons.arrow_back),
         ),
