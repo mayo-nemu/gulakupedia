@@ -17,4 +17,14 @@ class SignInRequired extends SignInEvent {
   List<Object> get props => [email, password];
 }
 
+class UpdatePassword extends SignInEvent {
+  final String oldPassword;
+  final String newPassword;
+
+  const UpdatePassword(this.oldPassword, this.newPassword);
+
+  @override
+  List<Object> get props => [oldPassword, newPassword];
+}
+
 class SignOutRequired extends SignInEvent {}

@@ -233,7 +233,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Tidak ada hasil untuk barcode ini. 😔'),
+                  const Text('Tidak ada hasil untuk barcode ini.'),
                   const SizedBox(height: 10),
                   Text(
                     'Barcode: ${widget.barcode}',
@@ -258,7 +258,97 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
               children: [
                 Text('Grade', style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Untuk menilai kualitas nutrisi,\ntermasuk kandungan gula.',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.headlineSmall,
+                                  ),
+                                ],
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  children: [
+                                    TextSpan(text: '•    Grade '),
+                                    TextSpan(
+                                      text: 'A : ≤ 5g',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(color: Color(0xFF28C76F)),
+                                    ),
+                                    TextSpan(text: ' Gula Sangat Rendah'),
+                                  ],
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  children: [
+                                    TextSpan(text: '•    Grade '),
+                                    TextSpan(
+                                      text: 'B : 5g - 10g',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(color: Color(0xFFA3CB38)),
+                                    ),
+                                    TextSpan(text: ' Gula Rendah'),
+                                  ],
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  children: [
+                                    TextSpan(text: '•    Grade '),
+                                    TextSpan(
+                                      text: 'C : 10g - 15g',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(color: Color(0xFFFFA500)),
+                                    ),
+                                    TextSpan(text: ' Gula Sedang'),
+                                  ],
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  children: [
+                                    TextSpan(text: '•    Grade '),
+                                    TextSpan(
+                                      text: 'D : ≥ 15g',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(color: Color(0xFFFF4C4C)),
+                                    ),
+                                    TextSpan(text: ' Gula Tinggi'),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                   icon: Icon(Icons.info, size: 22, color: Colors.black),
                 ),
                 SizedBox(width: 8),

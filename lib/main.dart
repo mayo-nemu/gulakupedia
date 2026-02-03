@@ -14,10 +14,8 @@ Future<void> main() async {
 
   OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Gulakupedia');
   OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
-    OpenFoodFactsLanguage.ENGLISH,
     OpenFoodFactsLanguage.INDONESIAN,
   ];
-  OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.INDONESIA;
 
   Bloc.observer = SimpleBlocObserver();
   runApp(MainApp(FirebaseUserRepo()));

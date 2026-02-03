@@ -184,13 +184,9 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
 
   @override
   void dispose() {
-    // If the JournalBloc is provided higher up in the widget tree (e.g., in main.dart),
-    // you should NOT close it here, as it's managed by a parent BlocProvider.
-    // If it was created directly in this widget's initState, then it would need closing.
     super.dispose();
   }
 
-  /// Helper widget to display a single nutrition item with progress.
   Widget _buildNutritionItem(
     BuildContext context, {
     required String label,

@@ -43,75 +43,88 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     super.dispose();
   }
 
+  MyUser? _onSave() {
+    if (_formKey.currentState!.validate() && _selectedActivities != null) {
+      final double? parsedWeight = double.tryParse(_weightController.text);
+      final double? parsedHeight = double.tryParse(_heightController.text);
+      final double parsedBloodSugars =
+          double.tryParse(_bloodSugarsController.text) ?? 0.0;
+
+      final MyUser myUser = widget.user.copyWith(
+        weight: parsedWeight!,
+        height: parsedHeight!,
+        bloodSugars: parsedBloodSugars,
+        activities: _selectedActivities!,
+        isProfileComplete: true,
+      );
+
+      return myUser;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileSettingsBloc>(
-      create: (context) => ProfileSettingsBloc(
-        context.read<AuthenticationBloc>().userRepository,
-      ),
-      child: BlocListener<ProfileSettingsBloc, ProfileSettingsState>(
-        listener: (context, state) {
-          if (state is ProfileSettingsSuccess) {
-            context.goNamed(RoutesName.profil);
-          } else if (state is ProfileSettingsFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
-          }
-        },
-        child: LayoutAppbar(
-          title: 'Perbarui data gula darah',
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  NumberField(
-                    controller: _weightController,
-                    labelText: 'Berat badan (kg)',
-                    validator: (value) => InputValidation.validateWeight(value),
-                  ),
-                  const SizedBox(height: 30),
-                  NumberField(
-                    controller: _heightController,
-                    labelText: 'Tinggi badan (cm)',
-                    validator: (value) => InputValidation.validateHeight(value),
-                  ),
-                  const SizedBox(height: 30),
-                  NumberField(
-                    controller: _bloodSugarsController,
-                    labelText: 'Gula darah saat ini',
-                    validator: (value) =>
-                        InputValidation.validateBloodSugars(value),
-                  ),
-                  const SizedBox(height: 30),
-                  ActivitiesField(
-                    initialValue: _selectedActivities,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedActivities = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {
-                      // final validUser = _onSave();
+    return BlocListener<ProfileSettingsBloc, ProfileSettingsState>(
+      listener: (context, state) {
+        if (state is ProfileSettingsSuccess) {
+          context.goNamed(RoutesName.profil);
+        } else if (state is ProfileSettingsFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      child: LayoutAppbar(
+        title: 'Perbarui data gula darah',
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                NumberField(
+                  controller: _weightController,
+                  labelText: 'Berat badan (kg)',
+                  validator: (value) => InputValidation.validateWeight(value),
+                ),
+                const SizedBox(height: 30),
+                NumberField(
+                  controller: _heightController,
+                  labelText: 'Tinggi badan (cm)',
+                  validator: (value) => InputValidation.validateHeight(value),
+                ),
+                const SizedBox(height: 30),
+                NumberField(
+                  controller: _bloodSugarsController,
+                  labelText: 'Gula darah saat ini (Opsional)',
+                ),
+                const SizedBox(height: 30),
+                ActivitiesField(
+                  initialValue: _selectedActivities,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedActivities = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  onPressed: () {
+                    // final validUser = _onSave();
 
-                      // if (validUser != null) {
-                      // }
-                    },
-                    child: Text(
-                      'Simpan',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelLarge!.copyWith(color: Colors.white),
-                    ),
+                    // if (validUser != null) {
+                    // }
+                  },
+                  child: Text(
+                    'Simpan',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelLarge!.copyWith(color: Colors.white),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

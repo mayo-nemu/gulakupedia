@@ -43,7 +43,9 @@ class BaseTextField extends StatelessWidget {
           obscureText: obscureText,
           controller: controller,
           keyboardType: keyboardType,
+
           decoration: InputDecoration(
+            isDense: true,
             hintText: hintText,
             hintStyle: Theme.of(
               context,

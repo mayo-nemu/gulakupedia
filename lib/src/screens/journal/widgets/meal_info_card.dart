@@ -6,9 +6,11 @@ class MealInfoCard extends StatelessWidget {
     required this.journal,
     required this.meals,
     this.sugarsTotal = 0,
+    this.sugarsGoal = 30,
   });
   final Journal journal;
   final double? sugarsTotal;
+  final double? sugarsGoal;
   final List<Meal> meals;
 
   @override
@@ -41,10 +43,7 @@ class MealInfoCard extends StatelessWidget {
                   RoutesName.asupan,
                   pathParameters: {'journalId': journal.id},
                   queryParameters: {'mealName': breakfast.name},
-                  extra: {
-                    'sugarsGoal': journal.sugarsGoal,
-                    'sugarsTotal': sugarsTotal,
-                  },
+                  extra: {'sugarsGoal': sugarsGoal, 'sugarsTotal': sugarsTotal},
                 );
               },
               meal: breakfast,
@@ -57,10 +56,7 @@ class MealInfoCard extends StatelessWidget {
                   RoutesName.asupan,
                   pathParameters: {'journalId': journal.id},
                   queryParameters: {'mealName': lunch.name},
-                  extra: {
-                    'sugarsGoal': journal.sugarsGoal,
-                    'sugarsTotal': sugarsTotal,
-                  },
+                  extra: {'sugarsGoal': sugarsGoal, 'sugarsTotal': sugarsTotal},
                 );
               },
               meal: lunch,
@@ -73,10 +69,7 @@ class MealInfoCard extends StatelessWidget {
                   RoutesName.asupan,
                   pathParameters: {'journalId': journal.id},
                   queryParameters: {'mealName': dinner.name},
-                  extra: {
-                    'sugarsGoal': journal.sugarsGoal,
-                    'sugarsTotal': sugarsTotal,
-                  },
+                  extra: {'sugarsGoal': sugarsGoal, 'sugarsTotal': sugarsTotal},
                 );
               },
               meal: dinner,
@@ -89,10 +82,7 @@ class MealInfoCard extends StatelessWidget {
                   RoutesName.asupan,
                   pathParameters: {'journalId': journal.id},
                   queryParameters: {'mealName': snack.name},
-                  extra: {
-                    'sugarsGoal': journal.sugarsGoal,
-                    'sugarsTotal': sugarsTotal,
-                  },
+                  extra: {'sugarsGoal': sugarsGoal, 'sugarsTotal': sugarsTotal},
                 );
               },
               meal: snack,

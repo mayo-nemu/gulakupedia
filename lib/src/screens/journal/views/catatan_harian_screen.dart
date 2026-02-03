@@ -7,6 +7,8 @@ import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/screens/journal/blocs/journal_bloc/journal_bloc.dart';
 import 'package:journal_repository/journal_repository.dart';
 import 'package:collection/collection.dart';
+import 'package:user_repository/user_repository.dart';
+import 'package:gulapedia/src/utilities/daily_recommended_intake.dart';
 
 part 'package:gulapedia/src/screens/journal/widgets/journal_info_card.dart';
 part 'package:gulapedia/src/screens/journal/widgets/meal_info_card.dart';
@@ -20,7 +22,7 @@ class CatatanHarianScreen extends StatefulWidget {
 }
 
 class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
-  late String _userId;
+  late MyUser _user;
   late JournalBloc _journalBloc;
 
   late DateTime _currentDisplayDate;
@@ -28,10 +30,10 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
   @override
   void initState() {
     super.initState();
-    _userId = context.read<AuthenticationBloc>().state.user!.userId;
+    _user = context.read<AuthenticationBloc>().state.user!;
     _journalBloc = context.read<JournalBloc>();
     _currentDisplayDate = widget.date ?? DateTime.now();
-    _journalBloc.add(GetThisJournal(_userId, _currentDisplayDate));
+    _journalBloc.add(GetThisJournal(_user.userId, _currentDisplayDate));
   }
 
   @override
@@ -39,7 +41,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     super.didUpdateWidget(oldWidget);
     // Only refresh if the date changes
     if (_currentDisplayDate != oldWidget.date) {
-      _journalBloc.add(GetThisJournal(_userId, _currentDisplayDate));
+      _journalBloc.add(GetThisJournal(_user.userId, _currentDisplayDate));
     }
   }
 
@@ -58,7 +60,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     setState(() {
       _currentDisplayDate = selectedDay;
     });
-    _journalBloc.add(GetThisJournal(_userId, selectedDay));
+    _journalBloc.add(GetThisJournal(_user.userId, selectedDay));
   }
 
   @override
@@ -66,6 +68,16 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     int weekNumber =
         ((_currentDisplayDate.day - 1) ~/ 7) +
         1; // This remains for weekly context
+
+    final userData = DailyRecommendedIntake(
+      dateOfBirth: _user.birthday,
+      gender: _user.gender,
+      weight: _user.weight,
+      height: _user.height,
+    );
+    final tdee = userData.calculateTDEE(_user.activities);
+    final recCalories = userData.calculateRecommendedCalories(tdee, 'maintain');
+    final recSugars = userData.calculateAddedSugarsLimit(recCalories);
 
     return BlocProvider.value(
       value: _journalBloc,
@@ -176,7 +188,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       periodJournals: periodJournals,
                       selectedDate: _currentDisplayDate,
                       sugarsConsumed: sugarsConsumedCurrentDay,
-                      sugarsGoal: currentJournal.sugarsGoal,
+                      sugarsGoal: recSugars,
                       onDayPressed: _onDaySelectedInJournalInfoCard,
                     ),
                     const SizedBox(height: 14),
@@ -189,6 +201,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       journal: currentJournal,
                       meals: currentJournalMeals,
                       sugarsTotal: sugarsConsumedCurrentDay,
+                      sugarsGoal: recSugars,
                     ),
                     const Spacer(flex: 2),
                   ],

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class DropdownOption<T> {
   final String label;
   final T value;
+  final Widget? extra;
 
-  const DropdownOption({required this.label, required this.value});
+  const DropdownOption({required this.label, required this.value, this.extra});
 }
 
 class BaseDropdownPickerField<T> extends StatefulWidget {
@@ -12,8 +13,8 @@ class BaseDropdownPickerField<T> extends StatefulWidget {
     super.key,
     required this.options,
     this.onChanged,
-    this.labelText = 'Select an option',
-    this.hintText = 'Choose...',
+    this.labelText = 'Pilih',
+    this.hintText = 'Silahkan memilih',
     this.initialValue,
     this.validator,
   });
@@ -61,6 +62,7 @@ class _BaseDropdownPickerFieldState<T>
             ).textTheme.bodyLarge!.copyWith(color: Colors.black54),
           ),
           decoration: InputDecoration(
+            isDense: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
               borderSide: const BorderSide(width: 1.25, color: Colors.grey),
@@ -86,9 +88,15 @@ class _BaseDropdownPickerFieldState<T>
 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  option.label,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      option.label,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    if (option.extra != null) ...[option.extra!],
+                  ],
                 ),
               ),
             );

@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icons.bar_chart,
                       text: 'Laporan',
                       onTap: () {
-                        // Handle tap
+                        context.pushNamed(RoutesName.rekapMingguan);
                       },
                     ),
                     const SizedBox(height: 10),

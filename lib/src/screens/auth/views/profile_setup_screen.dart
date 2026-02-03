@@ -41,9 +41,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         _selectedActivities != null) {
       final double? parsedWeight = double.tryParse(_weightController.text);
       final double? parsedHeight = double.tryParse(_heightController.text);
-      final double? parsedBloodSugars = double.tryParse(
-        _bloodSugarsController.text,
-      );
+      final double parsedBloodSugars =
+          double.tryParse(_bloodSugarsController.text) ?? 0.0;
 
       final DateTime parsedBirthday = DateFormat(
         'dd - MM - yyyy',
@@ -54,7 +53,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         gender: _selectedGender!,
         weight: parsedWeight!,
         height: parsedHeight!,
-        bloodSugars: parsedBloodSugars!,
+        bloodSugars: parsedBloodSugars,
         activities: _selectedActivities!,
         isProfileComplete: true,
       );
@@ -130,10 +129,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                       const SizedBox(height: 15),
                       NumberField(
                         controller: _bloodSugarsController,
-                        labelText: 'Gula darah saat ini',
+                        labelText: 'Gula darah saat ini (Opsional)',
                         hintText: '90 mg/dL',
-                        validator: (value) =>
-                            InputValidation.validateBloodSugars(value),
                       ),
                       const SizedBox(height: 15),
                       ActivitiesField(

@@ -2,6 +2,7 @@
 import 'package:food_repository/food_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gulapedia/src/screens/auth/blocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:gulapedia/src/screens/food/blocs/food_save_bloc/food_save_bloc.dart';
 import 'package:gulapedia/src/screens/food/blocs/food_search_bloc/food_search_bloc.dart';
 import 'package:gulapedia/src/screens/food/views/barcode_scanner_screen.dart';
@@ -254,7 +255,10 @@ GoRouter router(AuthenticationBloc authBloc) {
                               .read<AuthenticationBloc>()
                               .state
                               .user!;
-                          return UpdateProfileScreen(user: user);
+                          return BlocProvider(
+                            create: (context) => SignUpBloc(FirebaseUserRepo()),
+                            child: UpdateProfileScreen(user: user),
+                          );
                         },
                       ),
                     ],

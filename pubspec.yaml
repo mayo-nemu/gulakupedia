@@ -1,7 +1,7 @@
 name: gulapedia
-description: "Aplikasi pemantau masukan gula."
+description: "Aplikasi pemantau asupan gula harian."
 publish_to: 'none' 
-version: 1.1.0+3
+version: 1.1.1+5
 
 environment:
   sdk: ^3.8.1
@@ -32,6 +32,7 @@ dependencies:
   mobile_scanner: ^7.0.1
   permission_handler: ^12.0.1
   table_calendar: ^3.2.0
+  firebase_ai: ^2.3.0
     
 dev_dependencies:
   flutter_test:

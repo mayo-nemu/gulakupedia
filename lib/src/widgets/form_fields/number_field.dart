@@ -7,7 +7,7 @@ class NumberField extends StatelessWidget {
     required this.controller,
     required this.labelText,
     this.hintText,
-    required this.validator,
+    this.validator,
   });
 
   final TextEditingController controller;

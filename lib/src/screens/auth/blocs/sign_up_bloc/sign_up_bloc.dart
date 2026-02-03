@@ -27,7 +27,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         await _userRepository.setUserData(event.user);
         emit(SignUpSuccess());
       } catch (e) {
-        emit(SignUpFailure('Sign Up Failed: ${e.toString()}'));
+        emit(SignUpFailure('Profile Update Failed: ${e.toString()}'));
       }
     });
   }
