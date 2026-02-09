@@ -61,9 +61,9 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
         return LayoutAppbar(
           title: widget.mealName,
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(85),
+            preferredSize: const Size.fromHeight(89),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 25),
+              padding: const EdgeInsets.fromLTRB(21, 21, 21, 21),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -75,10 +75,10 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
 
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: 'Makan apa hari ini?',
+                            hintText: 'Cari Asupan',
                             prefixIcon: Icon(
                               Icons.search,
-                              size: 32,
+                              size: 34,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             border: OutlineInputBorder(
@@ -124,7 +124,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
                             );
                           },
                           icon: const Icon(
-                            Icons.barcode_reader,
+                            Icons.qr_code_scanner_rounded,
                             color: Colors.white,
                           ),
                         ),
@@ -263,7 +263,9 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          shape: RoundedRectangleBorder(),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,74 +274,89 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Untuk menilai kualitas nutrisi,\ntermasuk kandungan gula.',
+                                    'Kategori Kandungan Gula:',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.headlineSmall,
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 13),
                               Text.rich(
                                 TextSpan(
                                   style: Theme.of(context).textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(text: '•    Grade '),
                                     TextSpan(
-                                      text: 'A : ≤ 5g',
+                                      text: 'A  :  ≤ 5g ',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
-                                          .copyWith(color: Color(0xFF28C76F)),
+                                          .copyWith(
+                                            color: Color(0xFF28C76F),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                                    TextSpan(text: ' Gula Sangat Rendah'),
+                                    TextSpan(text: ' — Sangat Rendah'),
                                   ],
                                 ),
                               ),
+                              SizedBox(height: 5),
                               Text.rich(
                                 TextSpan(
                                   style: Theme.of(context).textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(text: '•    Grade '),
+                                    // TextSpan(text: '•    Grade '),
                                     TextSpan(
-                                      text: 'B : 5g - 10g',
+                                      text: 'B  :  5 - 10g ',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
-                                          .copyWith(color: Color(0xFFA3CB38)),
+                                          .copyWith(
+                                            color: Color(0xFFA3CB38),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                                    TextSpan(text: ' Gula Rendah'),
+                                    TextSpan(text: ' — Rendah'),
                                   ],
                                 ),
                               ),
+                              SizedBox(height: 5),
                               Text.rich(
                                 TextSpan(
                                   style: Theme.of(context).textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(text: '•    Grade '),
+                                    // TextSpan(text: '•    Grade '),
                                     TextSpan(
-                                      text: 'C : 10g - 15g',
+                                      text: 'C  :  10 - 15g ',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
-                                          .copyWith(color: Color(0xFFFFA500)),
+                                          .copyWith(
+                                            color: Color(0xFFFFA500),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                                    TextSpan(text: ' Gula Sedang'),
+                                    TextSpan(text: ' — Sedang'),
                                   ],
                                 ),
                               ),
+                              SizedBox(height: 5),
                               Text.rich(
                                 TextSpan(
                                   style: Theme.of(context).textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(text: '•    Grade '),
+                                    // TextSpan(text: '•    Grade '),
                                     TextSpan(
-                                      text: 'D : ≥ 15g',
+                                      text: 'D  :  ≥ 15g ',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
-                                          .copyWith(color: Color(0xFFFF4C4C)),
+                                          .copyWith(
+                                            color: Color(0xFFFF4C4C),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                                    TextSpan(text: ' Gula Tinggi'),
+                                    TextSpan(text: ' — Tinggi'),
                                   ],
                                 ),
                               ),

@@ -51,50 +51,48 @@ flutter:
 
 
   fonts:
-    - family: Poppins
+    - family: Segoe UI
       fonts:
-        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/Poppins/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/segoeui/segoeui_light.ttf
           weight: 200
-        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        - asset: assets/fonts/segoeui/segoeui_semi_light.ttf
           weight: 300
-        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/segoeui/segoeui.ttf
           weight: 400 # Regular
-        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/segoeui/segoeui.ttf
           weight: 500
-        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/segoeui/segoeui_semi_bold.ttf
           weight: 600
-        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/segoeui/segoeui_bold.ttf
           weight: 700
-        - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/segoeui/segoeui_bold.ttf
           weight: 800
-        - asset: assets/fonts/Poppins/Poppins-Black.ttf
+        - asset: assets/fonts/segoeui/segoeui_black.ttf
           weight: 900
-        - asset: assets/fonts/Poppins/Poppins-ThinItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_light_italic.ttf
           weight: 100
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_light_italic.ttf
           weight: 200
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-LightItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_light_italic.ttf
           weight: 300
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+        - asset: assets/fonts/segoeui/segoeui_italic.ttf
           weight: 400
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_italic.ttf
           weight: 500
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_semi_bold_italic.ttf
           weight: 600
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_bold_italic.ttf
           weight: 700
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_bold_italic.ttf
           weight: 800
           style: italic
-        - asset: assets/fonts/Poppins/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/segoeui/segoeui_black_italic.ttf
           weight: 900
           style: italic

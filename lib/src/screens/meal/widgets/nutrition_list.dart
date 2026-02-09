@@ -14,25 +14,25 @@ class NutritionList extends StatelessWidget {
           'Kandungan Nutrisi',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 21),
         NutritionItem(
           nutritionName: 'Kalori',
           nutritionTotal: meal.totalCaloriesGram,
           nutritionUnit: 'kcal',
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 21),
         NutritionItem(
           nutritionName: 'Protein',
           nutritionTotal: meal.totalProteinGram,
           nutritionUnit: 'g',
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 21),
         NutritionItem(
           nutritionName: 'Lemak',
           nutritionTotal: meal.totalFatGram,
           nutritionUnit: 'g',
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 21),
 
         NutritionItem(
           nutritionName: 'Gula',

@@ -49,8 +49,8 @@ class FoodDetailsScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 250,
-      padding: EdgeInsets.all(25),
-      decoration: BoxDecoration(color: Colors.white),
+      padding: EdgeInsets.all(21),
+      // decoration: BoxDecoration(color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,32 +58,32 @@ class FoodDetailsScreen extends StatelessWidget {
             'Kandungan Nutrisi',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: 28),
+          SizedBox(height: 34),
+          _buildNutritionItem(
+            context,
+            label: 'Gula',
+            value: food.sugars100g,
+            unit: 'g',
+          ),
+          SizedBox(height: 21),
           _buildNutritionItem(
             context,
             label: 'Kalori',
             value: food.calories100g,
             unit: 'kcal',
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 21),
           _buildNutritionItem(
             context,
             label: 'Protein',
             value: food.protein100g,
             unit: 'g',
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 21),
           _buildNutritionItem(
             context,
             label: 'Lemak',
             value: food.fat100g,
-            unit: 'g',
-          ),
-          SizedBox(height: 20),
-          _buildNutritionItem(
-            context,
-            label: 'Gula',
-            value: food.sugars100g,
             unit: 'g',
           ),
         ],

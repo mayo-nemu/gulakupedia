@@ -37,36 +37,41 @@ class ProfileScreen extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(
                   children: [
-                    const SizedBox(height: 56),
+                    const SizedBox(height: 55),
                     const CircleAvatar(
-                      radius: 64,
+                      radius: 55,
                       backgroundImage: AssetImage(
                         'assets/images/joseph-gonzalez-unsplash.jpg',
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 21),
                     Text(
                       user.name,
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 13),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
+                        horizontal: 21,
+                        vertical: 5,
                       ),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(21),
                       ),
                       child: Text(
                         user.email,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        style: TextStyle(
+                          letterSpacing: 0.9,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 34),
                   ],
                 ),
               ),
@@ -74,35 +79,35 @@ class ProfileScreen extends StatelessWidget {
               // --- Menu Items Section ---
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 24,
+                  horizontal: 21,
+                  vertical: 55,
                 ),
                 child: Column(
                   children: [
                     ProfileMenuItem(
-                      icon: Icons.settings,
-                      text: 'Pengaturan Akun',
+                      icon: Icons.person_outline,
+                      text: 'Akun & Data Diri',
                       onTap: () {
                         context.pushNamed(RoutesName.pengaturanAkun);
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 13),
                     ProfileMenuItem(
-                      icon: Icons.bar_chart,
-                      text: 'Laporan',
+                      icon: Icons.lock_outline,
+                      text: 'Privasi',
                       onTap: () {
                         context.pushNamed(RoutesName.rekapMingguan);
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 13),
                     ProfileMenuItem(
-                      icon: Icons.bookmark,
-                      text: 'Resep Tersimpan',
+                      icon: Icons.calendar_month_outlined,
+                      text: 'Kalender Gula',
                       onTap: () {
                         context.goNamed(RoutesName.resep);
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 13),
                     ProfileMenuItem(
                       icon: Icons.watch_later_outlined,
                       text: 'Pengingat',
@@ -110,10 +115,10 @@ class ProfileScreen extends StatelessWidget {
                         // Handle tap
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 21),
                     ProfileMenuItem(
                       icon: Icons.exit_to_app,
-                      text: 'Keluar',
+                      text: 'Keluar Akun',
                       color: Colors.red,
                       onTap: () {
                         context.read<ProfileSettingsBloc>().add(

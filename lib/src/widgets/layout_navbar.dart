@@ -24,7 +24,7 @@ class LayoutNavbar extends StatelessWidget {
       selectedAssetPath: 'assets/icons/fluent_book-24-filled.svg',
     ),
     Destination(
-      label: 'Resep',
+      label: 'Grafik',
       assetPath: 'assets/icons/solar_chef-hat-linear.svg',
       selectedAssetPath: 'assets/icons/tabler_chef-hat-filled.svg',
     ),

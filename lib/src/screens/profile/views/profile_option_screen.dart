@@ -12,7 +12,7 @@ class ProfileOptionScreen extends StatelessWidget {
     return LayoutAppbar(
       title: 'Pengaturan Akun',
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 21),
         child: Column(
           children: [
             ProfileMenuItem(
