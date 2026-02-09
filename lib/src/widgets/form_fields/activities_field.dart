@@ -4,7 +4,7 @@ import 'base_dropdown_picker_field.dart';
 class ActivitiesField extends StatelessWidget {
   final ValueChanged<dynamic>? onChanged;
   final String? initialValue;
-  ActivitiesField({super.key, this.onChanged, this.initialValue});
+  const ActivitiesField({super.key, this.onChanged, this.initialValue});
 
   @override
   Widget build(BuildContext context) {

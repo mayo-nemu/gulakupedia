@@ -165,7 +165,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
     );
   }
 
-  _buildFoodQuantityInput(Food food) {
+  Padding _buildFoodQuantityInput(Food food) {
     final sugarsTotal = (food.sugars100g / 100) * food.quantityGram;
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
@@ -229,7 +229,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
     );
   }
 
-  _buildFoodList(BuildContext context, {required List<Food> foods}) {
+  ListView _buildFoodList(BuildContext context, {required List<Food> foods}) {
     return ListView.builder(
       itemCount: foods.length,
       itemBuilder: (context, index) {

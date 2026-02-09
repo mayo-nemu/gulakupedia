@@ -54,7 +54,7 @@ class _BaseDropdownPickerFieldState<T>
             ),
           ),
         DropdownButtonFormField<T>(
-          value: _selectedValue,
+          initialValue: _selectedValue,
           hint: Text(
             widget.hintText,
             style: Theme.of(

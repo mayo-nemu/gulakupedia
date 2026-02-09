@@ -27,7 +27,7 @@ class FoodDetailsScreen extends StatelessWidget {
     );
   }
 
-  _buildNutritionItem(
+  Row _buildNutritionItem(
     BuildContext context, {
     required String label,
     required double value,
@@ -45,7 +45,7 @@ class FoodDetailsScreen extends StatelessWidget {
     );
   }
 
-  _buildNutritionDetail(BuildContext context, Food food) {
+  Container _buildNutritionDetail(BuildContext context, Food food) {
     return Container(
       width: double.infinity,
       height: 250,

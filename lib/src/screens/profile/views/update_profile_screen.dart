@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gulapedia/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:gulapedia/src/routes/routes_name.dart';
 import 'package:gulapedia/src/screens/profile/blocs/profile_settings_bloc/profile_settings_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
