@@ -133,7 +133,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Atur asupan \n sehat favoritmu',
+                          'Atur asupan \nsehat favoritmu',
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         Container(
@@ -163,23 +163,6 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                         Text(
                           'Minggu $weekNumber',
                           style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            context.pushNamed(
-                              RoutesName.rekapMingguan,
-                              queryParameters: {
-                                'date': _currentDisplayDate.toIso8601String(),
-                              },
-                            );
-                          },
-                          child: Text(
-                            'Rincian',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
                         ),
                       ],
                     ),
