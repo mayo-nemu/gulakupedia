@@ -49,8 +49,14 @@ class JournalInfoCard extends StatelessWidget {
     );
 
     return Card(
+      elevation: 0,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.5),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -65,9 +71,9 @@ class JournalInfoCard extends StatelessWidget {
 
                 return Column(
                   children: [
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 13),
                     CircleAvatar(
-                      radius: 18,
+                      radius: 21,
                       backgroundColor: isSameDay(date, selectedDate)
                           ? Theme.of(context).colorScheme.primary
                           : Theme.of(context).colorScheme.secondary,
@@ -76,7 +82,7 @@ class JournalInfoCard extends StatelessWidget {
                         icon: Center(
                           child: Icon(
                             Icons.check,
-                            size: 22,
+                            size: 21,
                             color: hasMeals
                                 ? isSameDay(date, selectedDate)
                                       ? Colors.white
@@ -86,7 +92,7 @@ class JournalInfoCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     Text(
                       _getShortDayName(date),
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -102,23 +108,29 @@ class JournalInfoCard extends StatelessWidget {
                 );
               }),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 34),
             Text(
               'Gula',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.copyWith(color: Colors.black54),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: LinearProgressIndicator(
-                color: Theme.of(context).colorScheme.primary,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                value: sugarsConsumed / sugarsGoal,
+              padding: const EdgeInsets.symmetric(horizontal: 55),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  height: 5,
+                  child: LinearProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    value: sugarsConsumed / sugarsGoal,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Text.rich(
               TextSpan(
                 children: [

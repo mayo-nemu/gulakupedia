@@ -32,9 +32,16 @@ class MealInfoCard extends StatelessWidget {
         Meal.empty().copyWith(name: 'Cemilan', journalId: journal.id);
 
     return Card(
+      elevation: 0,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.5),
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             MealItem(
               icon: 'assets/icons/noto_bread.png',
@@ -48,7 +55,7 @@ class MealInfoCard extends StatelessWidget {
               },
               meal: breakfast,
             ),
-            Divider(color: Colors.grey),
+            Divider(color: const Color.fromARGB(217, 217, 217, 217)),
             MealItem(
               icon: 'assets/icons/noto_pot-of-food.png',
               onPressed: () {
@@ -61,7 +68,7 @@ class MealInfoCard extends StatelessWidget {
               },
               meal: lunch,
             ),
-            Divider(color: Colors.grey),
+            Divider(color: Color.fromARGB(217, 217, 217, 217)),
             MealItem(
               icon: 'assets/icons/noto_green-salad.png',
               onPressed: () {
@@ -74,7 +81,7 @@ class MealInfoCard extends StatelessWidget {
               },
               meal: dinner,
             ),
-            Divider(color: Colors.grey),
+            Divider(color: Color.fromARGB(217, 217, 217, 217)),
             MealItem(
               icon: 'assets/icons/noto_kiwi-fruit.png',
               onPressed: () {
@@ -105,36 +112,68 @@ class MealItem extends StatelessWidget {
   final VoidCallback onPressed;
   final Meal meal;
 
+  //Tambahan++++++++++++++++++
+  // String get foodNames {
+  //   if (!meal.hasFoods) return 'Belum ada Asupan';
+  //   return meal.meal
+  //   .map((food) => food.name)
+  //   .take(2)
+  //   .join(', ');
+  // }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.only(
+        left: 8,
+        right: 8,
+        top: 13,
+        bottom: 13,
+      ),
       leading: SizedBox(
-        height: 56,
-        width: 56,
+        height: 55,
+        width: 55,
         child: Stack(
           children: [
             Center(
               child: SizedBox(
-                height: 48,
-                width: 48,
+                height: 55,
+                width: 55,
                 child: CircularProgressIndicator(
                   color: Theme.of(context).colorScheme.primary,
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   value: meal.hasFoods ? 1 : 0,
+                  strokeWidth: 5,
                 ),
               ),
             ),
-            Center(child: Image.asset(icon, fit: BoxFit.none)),
+            Center(
+              child: Image.asset(
+                icon,
+                height: 21,
+                width: 21,
+                fit: BoxFit.contain,
+              ),
+            ),
           ],
         ),
       ),
       title: Text(meal.name, style: Theme.of(context).textTheme.headlineMedium),
+      //Subtitle ini tambahan+++++++++++++
+      // subtitle: Text(
+      //   foodNames,
+      //   style: Theme.of(
+      //     context,
+      //   ).textTheme.bodySmall?.copyWith(color: Colors.grey),
+      //   maxLines: 1,
+      //   overflow: TextOverflow.ellipsis,
+      // ),
       trailing: IconButton(
         onPressed: onPressed,
         icon: Icon(
           Icons.add_circle,
           color: Theme.of(context).colorScheme.primary,
-          size: 32,
+          size: 34,
         ),
       ),
     );

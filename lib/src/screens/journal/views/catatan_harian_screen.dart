@@ -8,7 +8,6 @@ import 'package:gulapedia/src/screens/journal/blocs/journal_bloc/journal_bloc.da
 import 'package:journal_repository/journal_repository.dart';
 import 'package:collection/collection.dart';
 import 'package:user_repository/user_repository.dart';
-import 'package:gulapedia/src/utilities/daily_recommended_intake.dart';
 
 part 'package:gulapedia/src/screens/journal/widgets/journal_info_card.dart';
 part 'package:gulapedia/src/screens/journal/widgets/meal_info_card.dart';
@@ -69,15 +68,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
         ((_currentDisplayDate.day - 1) ~/ 7) +
         1; // This remains for weekly context
 
-    final userData = DailyRecommendedIntake(
-      dateOfBirth: _user.birthday,
-      gender: _user.gender,
-      weight: _user.weight,
-      height: _user.height,
-    );
-    final tdee = userData.calculateTDEE(_user.activities);
-    final recCalories = userData.calculateRecommendedCalories(tdee, 'maintain');
-    final recSugars = userData.calculateAddedSugarsLimit(recCalories);
+    final recSugars = 25.0; // Fixed recommended sugar intake
 
     return BlocProvider.value(
       value: _journalBloc,
@@ -123,22 +114,25 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
             return Scaffold(
               body: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 56,
+                  horizontal: 13,
+                  vertical: 21,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Atur asupan \n sehat favoritmu',
-                          style: Theme.of(context).textTheme.titleSmall,
+                          'Atur Asupan \nSehat Favoritmu',
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.1,
+                              ),
                         ),
                         Container(
-                          width: 48,
-                          height: 48,
+                          width: 55,
+                          height: 55,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
@@ -174,7 +168,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                             );
                           },
                           child: Text(
-                            'Rincian',
+                            'Kalender',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               decoration: TextDecoration.underline,
@@ -183,7 +177,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    // const SizedBox(height: 5),
                     JournalInfoCard(
                       periodJournals: periodJournals,
                       selectedDate: _currentDisplayDate,
@@ -191,19 +185,22 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       sugarsGoal: recSugars,
                       onDayPressed: _onDaySelectedInJournalInfoCard,
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 34),
                     Text(
-                      'Nutrisi',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      'Nutrisi Harian',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.1,
+                      ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 13),
                     MealInfoCard(
                       journal: currentJournal,
                       meals: currentJournalMeals,
                       sugarsTotal: sugarsConsumedCurrentDay,
                       sugarsGoal: recSugars,
                     ),
-                    const Spacer(flex: 2),
+                    // const Spacer(flex: 1),
                   ],
                 ),
               ),
