@@ -12,7 +12,7 @@ class ProfileOptionScreen extends StatelessWidget {
     return LayoutAppbar(
       title: 'Pengaturan Akun',
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 21),
+        padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 21),
         child: Column(
           children: [
             ProfileMenuItem(
@@ -21,7 +21,7 @@ class ProfileOptionScreen extends StatelessWidget {
                 context.pushNamed(RoutesName.updatePassword);
               },
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 13),
             ProfileMenuItem(
               text: 'Ubah data profil',
               onTap: () {

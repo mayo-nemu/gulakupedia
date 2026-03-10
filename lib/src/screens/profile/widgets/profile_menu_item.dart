@@ -18,19 +18,19 @@ class ProfileMenuItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(13),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(13),
             child: Row(
               children: <Widget>[
                 Icon(icon, color: color),
-                SizedBox(width: 16),
+                SizedBox(width: 13),
                 Expanded(
                   child: Text(
                     text,

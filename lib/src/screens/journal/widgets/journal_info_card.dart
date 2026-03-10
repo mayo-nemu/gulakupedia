@@ -119,7 +119,7 @@ class JournalInfoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 55),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: SizedBox(
                   height: 5,
                   child: LinearProgressIndicator(

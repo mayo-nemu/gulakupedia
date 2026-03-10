@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
               'assets/brands/gulapedia-logo-android.png',
               height: 256,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 21),
             Text(
               'GULAKUPEDIA',
               style: Theme.of(

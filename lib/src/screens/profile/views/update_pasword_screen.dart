@@ -51,20 +51,20 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(34),
               child: Column(
                 children: [
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   PasswordField(
                     controller: _oldPasswordController,
                     labelText: 'Kata sandi',
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   PasswordField(
                     controller: _newPasswordController,
                     labelText: 'Kata sandi baru',
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   ElevatedButton(
                     onPressed: () {
                       // final validUser = _onSave();

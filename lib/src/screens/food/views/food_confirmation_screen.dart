@@ -91,9 +91,14 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
         return LayoutAppbar(
           title: 'Atur Jumlah Asupan',
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
+            preferredSize: const Size.fromHeight(55),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.only(
+                top: 0,
+                bottom: 21,
+                left: 21,
+                right: 21,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -103,14 +108,20 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
                         flex: 1,
                         child: Text(
                           'Asupan',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ), // "Intake"
                       const Expanded(
                         flex: 1,
                         child: Text(
                           'Berat (g)',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ), // "Weight (g)"
@@ -118,7 +129,10 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
                         flex: 1,
                         child: Text(
                           'Gula (g)',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                           textAlign: TextAlign.end,
                         ),
                       ), // "Sugar (g)"
@@ -129,7 +143,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
             ),
           ),
           bottomNavigationAction: Padding(
-            padding: const EdgeInsets.fromLTRB(72, 0, 72, 64),
+            padding: const EdgeInsets.fromLTRB(55, 0, 55, 55),
             child: ElevatedButton(
               onPressed: () {
                 if (widget.foods.isNotEmpty) {
@@ -148,7 +162,7 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
                 }
               },
               child: Text(
-                'Selesai', // "Done"
+                'Simpan', // "Done"
                 style: Theme.of(
                   context,
                 ).textTheme.labelLarge!.copyWith(color: Colors.white),
@@ -168,17 +182,17 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
   Padding _buildFoodQuantityInput(Food food) {
     final sugarsTotal = (food.sugars100g / 100) * food.quantityGram;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.only(top: 8),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.white),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 21),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Text(
                   food.name,
                   softWrap: true,
@@ -186,37 +200,32 @@ class _FoodConfirmationScreenState extends State<FoodConfirmationScreen> {
                   maxLines: 2,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  width: 85,
-                  child: TextField(
-                    controller: _quantityControllers[food.id],
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) => _updateFoodQuantity(food, value),
-                    decoration: InputDecoration(
-                      isDense: true, // Reduce vertical space
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 8,
-                      ), // Adjust padding
-                      border: OutlineInputBorder(
-                        // Add border
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ), // Rounded corners
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outline,
-                          width: 1.0,
-                        ),
+              SizedBox(
+                width: 89,
+                child: TextField(
+                  controller: _quantityControllers[food.id],
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) => _updateFoodQuantity(food, value),
+                  decoration: InputDecoration(
+                    isDense: true, // Reduce vertical space
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 8,
+                    ), // Adjust padding
+                    border: OutlineInputBorder(
+                      // Add border
+                      borderRadius: BorderRadius.circular(8), // Rounded corners
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                        width: 1.0,
                       ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Text(
                   '${doubleToString(sugarsTotal)} g',
                   textAlign: TextAlign.end,

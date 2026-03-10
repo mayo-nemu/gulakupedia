@@ -8,7 +8,7 @@ class FoodDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutAppbar(
-      title: 'Keterangan',
+      title: 'Rincian Asupan',
       child: Column(
         children: [
           SizedBox(
@@ -56,7 +56,10 @@ class FoodDetailsScreen extends StatelessWidget {
         children: [
           Text(
             'Kandungan Nutrisi',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 34),
           _buildNutritionItem(

@@ -88,7 +88,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Camera permission is required to scan barcodes.'),
-              SizedBox(height: 20),
+              SizedBox(height: 21),
               // Optional: Add a button to open app settings
               // ElevatedButton(
               //   onPressed: () => openAppSettings(),

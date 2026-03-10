@@ -136,7 +136,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
             ),
           ),
           bottomNavigationAction: Padding(
-            padding: const EdgeInsets.fromLTRB(72, 32, 72, 64),
+            padding: const EdgeInsets.fromLTRB(55, 0, 55, 55),
             child: ElevatedButton(
               onPressed: () {
                 if (state.status == FoodSearchStatus.loaded &&
@@ -178,7 +178,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
     final double sugarsTotal = (food.sugars100g / 100) * food.servingSizeGram;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.only(bottom: 5),
       child: ListTile(
         title: Text(food.name, style: Theme.of(context).textTheme.bodyLarge),
         subtitle: getSugarGrade(sugarsTotal),
@@ -200,12 +200,12 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
               icon: isSelected
                   ? Icon(
                       Icons.check_circle_outline,
-                      size: 32,
+                      size: 34,
                       color: Theme.of(context).colorScheme.primary,
                     )
                   : const Icon(
                       Icons.add_circle_outline,
-                      size: 32,
+                      size: 34,
                       color: Colors.black,
                     ),
             ),
@@ -219,7 +219,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
   Widget _buildSearchResults(BuildContext context, FoodSearchState state) {
     switch (state.status) {
       case FoodSearchStatus.initial:
-        return const Center(child: Text('Mulai cari makanan!'));
+        return const Center(child: Text('Mulai cari Nutrisi!'));
       case FoodSearchStatus.loading:
         return const Center(child: CircularProgressIndicator());
       case FoodSearchStatus.failure:
@@ -234,12 +234,12 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Tidak ada hasil untuk barcode ini.'),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 13),
                   Text(
                     'Barcode: ${widget.barcode}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 21),
                   const Text(
                     'Coba cari dengan nama makanan atau scan barcode lain.',
                   ),
@@ -252,7 +252,7 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 12),
+            SizedBox(height: 21),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -366,16 +366,19 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
                       },
                     );
                   },
-                  icon: Icon(Icons.info, size: 22, color: Colors.black),
+                  icon: Icon(Icons.info, size: 28, color: Colors.black),
                 ),
                 SizedBox(width: 8),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.only(left: 21),
               child: Text(
                 'Hasil Pencarian',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
               ),
             ),
             SizedBox(height: 8),

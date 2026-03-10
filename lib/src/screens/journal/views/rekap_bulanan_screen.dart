@@ -49,18 +49,37 @@ class _RekapBulananScreenState extends State<RekapBulananScreen> {
     return a.year == b.year && a.month == b.month && a.day == b.day;
   }
 
+  String _formatAppBarDate(DateTime date) {
+    const months = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
+
+    return '${date.day} ${months[date.month - 1]} ${date.year}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _journalBloc,
       child: LayoutAppbar(
-        title: 'Rekap Bulanan',
+        title: _formatAppBarDate(_selectedDay),
         child: BlocBuilder<JournalBloc, JournalState>(
           builder: (context, state) {
             final List<Journal> monthlyJournals = state.periodJournals;
 
             return Padding(
-              padding: const EdgeInsets.fromLTRB(15, 65, 15, 0),
+              padding: const EdgeInsets.fromLTRB(13, 89, 13, 89),
               child: Column(
                 children: [
                   _buildCalendar(context, monthlyJournals: monthlyJournals),
@@ -81,7 +100,7 @@ class _RekapBulananScreenState extends State<RekapBulananScreen> {
   ) {
     return Icon(
       Icons.check_circle,
-      size: 18,
+      size: 13,
       color: Theme.of(context).colorScheme.primary,
     );
   }

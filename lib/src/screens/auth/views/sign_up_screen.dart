@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           return Scaffold(
             body: SafeArea(
               child: Padding(
-                padding: EdgeInsets.all(30),
+                padding: EdgeInsets.all(34),
                 child: Form(
                   key: _formKey,
                   child: Column(

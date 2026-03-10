@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LayoutAppbar extends StatelessWidget {
-  const LayoutAppbar({
+class LayoutAppbars2 extends StatelessWidget {
+  const LayoutAppbars2({
     super.key,
     required this.title,
     this.back,
@@ -23,20 +23,20 @@ class LayoutAppbar extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        titleSpacing: 5,
+        titleSpacing: 21,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         shadowColor: Colors.black38,
-        leading: IconButton(
-          onPressed: () {
-            if (back != null) {
-              back!();
-            } else {
-              context.pop();
-            }
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     if (back != null) {
+        //       back!();
+        //     } else {
+        //       context.pop();
+        //     }
+        //   },
+        //   icon: Icon(Icons.arrow_back),
+        // ),
         title: Text(title, style: Theme.of(context).textTheme.titleSmall),
         actions: actions,
         bottom: bottom,

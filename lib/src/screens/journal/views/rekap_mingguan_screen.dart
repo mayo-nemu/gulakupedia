@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gulapedia/src/utilities/daily_recommended_intake.dart';
 import 'package:gulapedia/src/utilities/double_to_string.dart';
 import 'package:gulapedia/src/widgets/layout_appbar.dart';
+import 'package:gulapedia/src/widgets/layout_appbar2.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:journal_repository/journal_repository.dart';
 import 'package:collection/collection.dart'; // For groupBy
@@ -170,6 +171,39 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
   late String _userId;
   late JournalBloc _journalBloc;
 
+  void _showBatasKonsumsiInfo(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(21)),
+      ),
+      builder: (_) {
+        return Padding(
+          padding: const EdgeInsets.all(13),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                'Batas Konsumsi Mingguan',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 13),
+              Text(
+                'Batas konsumsi dihitung berdasarkan rekomendasi harian '
+                'yang dikalikan 7 hari.\n\n'
+                '• Gula: Maksimal 10% dari total kalori\n'
+                '• Kalori: Berdasarkan kebutuhan TDEE\n'
+                '• Protein & Lemak: Berdasarkan distribusi makronutrien.',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -195,7 +229,7 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
     required double maxValue,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 13),
       child: Column(
         children: [
           Row(
@@ -203,9 +237,10 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
             children: [
               Text(
                 label,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               Text(
                 '${doubleToString(value)} / ${doubleToString(maxValue)} $unit',
@@ -215,11 +250,17 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 4),
-          LinearProgressIndicator(
-            color: Theme.of(context).colorScheme.secondary,
-            backgroundColor: Theme.of(context).colorScheme.tertiary,
-            value: (maxValue > 0) ? value / maxValue : 0,
+          const SizedBox(height: 1),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(13),
+            child: SizedBox(
+              height: 5,
+              child: LinearProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                value: (maxValue > 0) ? value / maxValue : 0,
+              ),
+            ),
           ),
         ],
       ),
@@ -241,8 +282,8 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
     final macro = userData.calculateMacronutrients(recCalories);
     final recSugars = userData.calculateAddedSugarsLimit(recCalories);
 
-    return LayoutAppbar(
-      title: 'Rekap Mingguan',
+    return LayoutAppbars2(
+      title: 'Total Asupan Perminggu',
       child: BlocBuilder<JournalBloc, JournalState>(
         builder: (context, state) {
           if (state.status == JournalStatus.loading) {
@@ -266,68 +307,112 @@ class _RekapMingguanScreenState extends State<RekapMingguanScreen> {
               );
             }
 
-            return ListView.builder(
-              itemCount: weeklySummaries.length,
-              itemBuilder: (context, index) {
-                final summary = weeklySummaries[index];
-                final weekNumber = viewModel._getWeekNumber(
-                  summary.startOfWeek,
-                );
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 21, 13, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Minggu: $weekNumber',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Card(
-                        color: Theme.of(context).colorScheme.primary,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildNutritionItem(
-                                context,
-                                label: 'Kalori',
-                                unit: 'kcal',
-                                value: summary.totalCalories,
-                                maxValue: recCalories * 7,
+                      GestureDetector(
+                        onTap: () {
+                          _showBatasKonsumsiInfo(context);
+                        },
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Batas Konsumsi',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.03,
                               ),
-                              _buildNutritionItem(
-                                context,
-                                label: 'Protein',
-                                unit: 'g',
-                                value: summary.totalProtein,
-                                maxValue: macro['protein']! * 7,
-                              ),
-                              _buildNutritionItem(
-                                context,
-                                label: 'Lemak',
-                                unit: 'g',
-                                value: summary.totalFat,
-                                maxValue: macro['fat']! * 7,
-                              ),
-                              _buildNutritionItem(
-                                context,
-                                label: 'Gula',
-                                unit: 'g',
-                                value: summary.totalSugars,
-                                maxValue: recSugars * 7,
-                              ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(Icons.info, size: 28),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                );
-              },
+                ),
+
+                const SizedBox(height: 8),
+
+                // LIST
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: weeklySummaries.length,
+                    itemBuilder: (context, index) {
+                      final summary = weeklySummaries[index];
+                      final weekNumber = viewModel._getWeekNumber(
+                        summary.startOfWeek,
+                      );
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 13,
+                          vertical: 13,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: Text(
+                                'Minggu: $weekNumber',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ),
+                            Card(
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildNutritionItem(
+                                      context,
+                                      label: 'Gula',
+                                      unit: 'g',
+                                      value: summary.totalSugars,
+                                      maxValue: recSugars * 7,
+                                    ),
+                                    _buildNutritionItem(
+                                      context,
+                                      label: 'Kalori',
+                                      unit: 'kcal',
+                                      value: summary.totalCalories,
+                                      maxValue: recCalories * 7,
+                                    ),
+                                    _buildNutritionItem(
+                                      context,
+                                      label: 'Protein',
+                                      unit: 'g',
+                                      value: summary.totalProtein,
+                                      maxValue: macro['protein']! * 7,
+                                    ),
+                                    _buildNutritionItem(
+                                      context,
+                                      label: 'Lemak',
+                                      unit: 'g',
+                                      value: summary.totalFat,
+                                      maxValue: macro['fat']! * 7,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           }
           // Default empty widget for other states (initial, etc.)

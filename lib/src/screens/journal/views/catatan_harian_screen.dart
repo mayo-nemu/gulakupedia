@@ -115,67 +115,72 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
               body: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 13,
-                  vertical: 21,
+                  vertical: 13,
                 ),
                 child: ListView(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Atur Asupan \nSehat Favoritmu',
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.1,
-                              ),
-                        ),
-                        Container(
-                          width: 55,
-                          height: 55,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                        left: 13,
+                        right: 13,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Atur Asupan \nSehat Favoritmu',
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0.1,
+                                ),
                           ),
-                          child: IconButton(
-                            onPressed: () {
-                              context.pushNamed(
-                                RoutesName.rekapBulanan,
-                                queryParameters: {
-                                  'date': _currentDisplayDate.toIso8601String(),
-                                },
-                              );
-                            },
-                            icon: const Icon(Icons.calendar_today_outlined),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Minggu $weekNumber',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            context.pushNamed(
-                              RoutesName.rekapMingguan,
-                              queryParameters: {
-                                'date': _currentDisplayDate.toIso8601String(),
+                          Container(
+                            width: 55,
+                            height: 55,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                context.pushNamed(
+                                  RoutesName.rekapBulanan,
+                                  queryParameters: {
+                                    'date': _currentDisplayDate
+                                        .toIso8601String(),
+                                  },
+                                );
                               },
-                            );
-                          },
-                          child: Text(
-                            'Kalender',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              decoration: TextDecoration.underline,
+                              icon: const Icon(Icons.calendar_month),
+                              iconSize: 34,
+                              color: Color(0xFF1A998E),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8,
+                        top: 21,
+                        left: 13,
+                        right: 21,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Minggu $weekNumber',
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.1,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                     // const SizedBox(height: 5),
                     JournalInfoCard(
@@ -186,14 +191,17 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       onDayPressed: _onDaySelectedInJournalInfoCard,
                     ),
                     const SizedBox(height: 34),
-                    Text(
-                      'Nutrisi Harian',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.1,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 13, right: 13),
+                      child: Text(
+                        'Nutrisi Harian',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.1,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 13),
+                    const SizedBox(height: 8),
                     MealInfoCard(
                       journal: currentJournal,
                       meals: currentJournalMeals,

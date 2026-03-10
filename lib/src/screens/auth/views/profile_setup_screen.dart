@@ -82,14 +82,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 25,
-                  horizontal: 30,
+                  vertical: 21,
+                  horizontal: 34,
                 ),
                 child: Form(
                   key: _formKey,
                   child: ListView(
                     children: [
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 34),
                       Text(
                         'Mulai perjalanan kontrol gula Anda',
                         textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 21),
                       BirthdayField(controller: _birthdayController),
                       GenderField(
                         initialValue: _selectedGender,
@@ -110,7 +110,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           });
                         },
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 13),
                       NumberField(
                         controller: _weightController,
                         labelText: 'Berat badan (kg)',
@@ -118,7 +118,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                         validator: (value) =>
                             InputValidation.validateWeight(value),
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 13),
                       NumberField(
                         controller: _heightController,
                         labelText: 'Tinggi badan (cm)',
@@ -126,13 +126,13 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                         validator: (value) =>
                             InputValidation.validateHeight(value),
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 13),
                       NumberField(
                         controller: _bloodSugarsController,
                         labelText: 'Gula darah saat ini (Opsional)',
                         hintText: '90 mg/dL',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 13),
                       ActivitiesField(
                         initialValue: _selectedActivities,
                         onChanged: (value) {
@@ -141,7 +141,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           });
                         },
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 21),
                       ElevatedButton(
                         onPressed: () {
                           final validUser = _onSave();
@@ -159,7 +159,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           ).textTheme.labelLarge!.copyWith(color: Colors.white),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 21),
                     ],
                   ),
                 ),

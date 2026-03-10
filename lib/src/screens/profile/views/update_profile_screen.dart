@@ -79,27 +79,27 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(34),
             child: Column(
               children: [
-                const SizedBox(height: 30),
+                const SizedBox(height: 34),
                 NumberField(
                   controller: _weightController,
                   labelText: 'Berat badan (kg)',
                   validator: (value) => InputValidation.validateWeight(value),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 34),
                 NumberField(
                   controller: _heightController,
                   labelText: 'Tinggi badan (cm)',
                   validator: (value) => InputValidation.validateHeight(value),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 34),
                 NumberField(
                   controller: _bloodSugarsController,
                   labelText: 'Gula darah saat ini (Opsional)',
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 34),
                 ActivitiesField(
                   initialValue: _selectedActivities,
                   onChanged: (value) {
@@ -108,7 +108,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 34),
                 ElevatedButton(
                   onPressed: () {
                     // final validUser = _onSave();

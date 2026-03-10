@@ -49,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
         builder: (context, state) => Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(30),
+              padding: EdgeInsets.all(34),
               child: Form(
                 key: _formKey,
                 child: Column(

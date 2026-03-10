@@ -17,7 +17,7 @@ class MySnackbar {
       SnackBar(
         content: Row(
           children: [
-            if (icon != null) ...[icon, const SizedBox(width: 16)],
+            if (icon != null) ...[icon, const SizedBox(width: 21)],
             Expanded(
               child: Text(
                 message,

@@ -10,9 +10,18 @@ class NutritionList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 34),
         Text(
           'Kandungan Nutrisi',
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            letterSpacing: 0.1, // atur sesuai kebutuhan
+          ),
+        ),
+        SizedBox(height: 21),
+        NutritionItem(
+          nutritionName: 'Gula',
+          nutritionTotal: meal.totalSugarsGram,
+          nutritionUnit: 'g',
         ),
         SizedBox(height: 21),
         NutritionItem(
@@ -30,13 +39,6 @@ class NutritionList extends StatelessWidget {
         NutritionItem(
           nutritionName: 'Lemak',
           nutritionTotal: meal.totalFatGram,
-          nutritionUnit: 'g',
-        ),
-        SizedBox(height: 21),
-
-        NutritionItem(
-          nutritionName: 'Gula',
-          nutritionTotal: meal.totalSugarsGram,
           nutritionUnit: 'g',
         ),
       ],

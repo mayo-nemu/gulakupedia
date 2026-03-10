@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                       child: Text(
                         user.email,
                         style: TextStyle(
-                          letterSpacing: 0.9,
+                          letterSpacing: 0.5,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -129,7 +129,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 21),
             ],
           ),
         ),

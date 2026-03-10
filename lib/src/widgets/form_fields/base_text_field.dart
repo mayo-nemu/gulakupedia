@@ -77,8 +77,8 @@ class BaseTextField extends StatelessWidget {
               ),
             ),
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 25.0,
+              vertical: 13,
+              horizontal: 21,
             ),
           ),
           validator: validator,

@@ -47,7 +47,7 @@ class MealScreen extends StatelessWidget {
             title: meal.name,
             back: () => context.goNamed(RoutesName.catatanHarian),
             bottomNavigationAction: Padding(
-              padding: const EdgeInsets.only(left: 72, right: 72, bottom: 64),
+              padding: const EdgeInsets.only(left: 34, right: 34, bottom: 55),
               child: ElevatedButton(
                 onPressed: () => context.pushNamed(
                   RoutesName.tambahMenu,
@@ -58,14 +58,9 @@ class MealScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.add_circle_outline,
-                      size: 24,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 4),
+                    // SizedBox(width: 4),
                     Text(
-                      'Tambah menu',
+                      'Tambah Nutrisi',
                       style: Theme.of(
                         context,
                       ).textTheme.labelLarge!.copyWith(color: Colors.white),
@@ -77,8 +72,8 @@ class MealScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                  vertical: 20,
+                  horizontal: 21,
+                  vertical: 21,
                 ),
                 child: Column(
                   children: [
@@ -86,8 +81,8 @@ class MealScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: SizedBox(
-                            height: 96,
-                            width: 96,
+                            height: 89,
+                            width: 89,
                             child: CircularProgressIndicator(
                               color: Theme.of(context).colorScheme.primary,
                               backgroundColor: Theme.of(
@@ -102,19 +97,19 @@ class MealScreen extends StatelessWidget {
                         ),
                         Center(
                           child: SizedBox(
-                            height: 96,
-                            width: 96,
+                            height: 89,
+                            width: 89,
                             child: Image.asset(
                               icon,
-                              height: 56,
-                              width: 56,
+                              height: 55,
+                              width: 55,
                               fit: BoxFit.none,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 13),
                     Text.rich(
                       textAlign: TextAlign.center,
                       TextSpan(
@@ -134,7 +129,7 @@ class MealScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 56),
+                    SizedBox(height: 34),
                     state.foods.isEmpty
                         ? SizedBox.shrink()
                         : FoodList(foods: state.foods),

@@ -47,7 +47,7 @@ class _BaseDropdownPickerFieldState<T>
       children: [
         if (widget.labelText.isNotEmpty)
           Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               widget.labelText,
               style: Theme.of(context).textTheme.bodyLarge,
@@ -64,16 +64,16 @@ class _BaseDropdownPickerFieldState<T>
           decoration: InputDecoration(
             isDense: true,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(34),
               borderSide: const BorderSide(width: 1.25, color: Colors.grey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(34),
               borderSide: const BorderSide(width: 1.25, color: Colors.grey),
             ),
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 25.0,
+              vertical: 13,
+              horizontal: 21,
             ),
           ),
           icon: Icon(
@@ -87,7 +87,7 @@ class _BaseDropdownPickerFieldState<T>
               value: option.value,
 
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
