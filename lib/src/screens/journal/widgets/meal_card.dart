@@ -1,7 +1,7 @@
 part of 'package:gulapedia/src/screens/journal/views/catatan_harian_screen.dart';
 
-class MealInfoCard extends StatelessWidget {
-  const MealInfoCard({
+class MealCard extends StatelessWidget {
+  const MealCard({
     super.key,
     required this.journal,
     required this.meals,

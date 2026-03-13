@@ -9,8 +9,8 @@ import 'package:journal_repository/journal_repository.dart';
 import 'package:collection/collection.dart';
 import 'package:user_repository/user_repository.dart';
 
-part 'package:gulapedia/src/screens/journal/widgets/journal_info_card.dart';
-part 'package:gulapedia/src/screens/journal/widgets/meal_info_card.dart';
+part 'package:gulapedia/src/screens/journal/widgets/daily_journal_card.dart';
+part 'package:gulapedia/src/screens/journal/widgets/meal_card.dart';
 
 class CatatanHarianScreen extends StatefulWidget {
   const CatatanHarianScreen({super.key, this.date});
@@ -55,7 +55,7 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
     return a.year == b.year && a.month == b.month && a.day == b.day;
   }
 
-  void _onDaySelectedInJournalInfoCard(DateTime selectedDay) {
+  void _onDaySelected(DateTime selectedDay) {
     setState(() {
       _currentDisplayDate = selectedDay;
     });
@@ -95,21 +95,15 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
               );
             }
 
-            // Filter meals specific to the currentJournal using the new journalId property on Meal
-            // This ensures we only show meals for the currently viewed day/journal
             final List<Meal> currentJournalMeals = allPeriodMeals
                 .where((meal) => meal.journalId == currentJournal.id)
                 .toList();
 
-            // Calculate sugars consumed ONLY for the currentJournal's meals
             final double sugarsConsumedCurrentDay = currentJournalMeals.fold(
               0.0,
               (sum, meal) => sum + meal.totalSugarsGram,
             );
 
-            // You can also calculate weekly/monthly sugars here from allPeriodMeals
-            // if state.period tells you the context, but for this screen,
-            // the daily sugar for currentJournal is most relevant.
 
             return Scaffold(
               body: Padding(
@@ -182,13 +176,12 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                         ],
                       ),
                     ),
-                    // const SizedBox(height: 5),
-                    JournalInfoCard(
+                    DailyJournalCard(
                       periodJournals: periodJournals,
                       selectedDate: _currentDisplayDate,
                       sugarsConsumed: sugarsConsumedCurrentDay,
                       sugarsGoal: recSugars,
-                      onDayPressed: _onDaySelectedInJournalInfoCard,
+                      onDayPressed: _onDaySelected,
                     ),
                     const SizedBox(height: 34),
                     Padding(
@@ -202,13 +195,12 @@ class _CatatanHarianScreenState extends State<CatatanHarianScreen> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    MealInfoCard(
+                    MealCard(
                       journal: currentJournal,
                       meals: currentJournalMeals,
                       sugarsTotal: sugarsConsumedCurrentDay,
                       sugarsGoal: recSugars,
                     ),
-                    // const Spacer(flex: 1),
                   ],
                 ),
               ),

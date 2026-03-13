@@ -54,6 +54,43 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
     super.dispose();
   }
 
+  void _showGradeInfo(BuildContext context) {
+    final grades = [
+      {
+        'g': 'A',
+        'r': '≤ 5g',
+        'l': 'Sangat Rendah',
+        'c': const Color(0xFF28C76F),
+      },
+      {'g': 'B', 'r': '5 - 10g', 'l': 'Rendah', 'c': const Color(0xFFA3CB38)},
+      {'g': 'C', 'r': '10 - 15g', 'l': 'Sedang', 'c': const Color(0xFFFFA500)},
+      {'g': 'D', 'r': '≥ 15g', 'l': 'Tinggi', 'c': const Color(0xFFFF4C4C)},
+    ];
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        title: const Center(child: Text('Kategori Kandungan Gula')),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: grades
+              .map(
+                (data) => _buildGradeLine(
+                  context,
+                  data['g'] as String,
+                  data['r'] as String,
+                  data['l'] as String,
+                  data['c'] as Color,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FoodSearchBloc, FoodSearchState>(
@@ -249,157 +286,83 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
           }
           return const Center(child: Text('Tidak ada hasil pencarian.'));
         }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 21),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text('Grade', style: Theme.of(context).textTheme.bodyLarge),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Kategori Kandungan Gula:',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineSmall,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 13),
-                              Text.rich(
-                                TextSpan(
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  children: [
-                                    TextSpan(
-                                      text: 'A  :  ≤ 5g ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            color: Color(0xFF28C76F),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    TextSpan(text: ' — Sangat Rendah'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text.rich(
-                                TextSpan(
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  children: [
-                                    // TextSpan(text: '•    Grade '),
-                                    TextSpan(
-                                      text: 'B  :  5 - 10g ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            color: Color(0xFFA3CB38),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    TextSpan(text: ' — Rendah'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text.rich(
-                                TextSpan(
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  children: [
-                                    // TextSpan(text: '•    Grade '),
-                                    TextSpan(
-                                      text: 'C  :  10 - 15g ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            color: Color(0xFFFFA500),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    TextSpan(text: ' — Sedang'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text.rich(
-                                TextSpan(
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  children: [
-                                    // TextSpan(text: '•    Grade '),
-                                    TextSpan(
-                                      text: 'D  :  ≥ 15g ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            color: Color(0xFFFF4C4C),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    TextSpan(text: ' — Tinggi'),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.info, size: 28, color: Colors.black),
-                ),
-                SizedBox(width: 8),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 21),
-              child: Text(
-                'Hasil Pencarian',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(height: 8),
-            Expanded(
-              child: ListView.builder(
-                itemCount: state.results!.length,
-                itemBuilder: (context, index) {
-                  final food = state.results![index];
+        return ListView.builder(
+          itemCount: state.results!.length,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 21),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Grade',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      IconButton(
+                        onPressed: () => _showGradeInfo(context),
+                        icon: const Icon(
+                          Icons.info,
+                          size: 28,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 21),
+                    child: Text(
+                      'Hasil Pencarian',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              );
+            }
 
-                  final isSelected = state.selectedFoods.contains(food);
+            final food = state.results![index - 1];
+            final isSelected = state.selectedFoods.contains(food);
 
-                  return _buildSearchItem(
-                    context,
-                    food: food,
-                    isSelected: isSelected,
-                  );
-                },
-              ),
-            ),
-          ],
+            return _buildSearchItem(
+              context,
+              food: food,
+              isSelected: isSelected,
+            );
+          },
         );
     }
   }
+}
+
+Widget _buildGradeLine(
+  BuildContext context,
+  String letter,
+  String range,
+  String label,
+  Color color,
+) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 2.5),
+    child: Text.rich(
+      TextSpan(
+        style: Theme.of(context).textTheme.bodyLarge,
+        children: [
+          TextSpan(
+            text: '$letter  :  $range ',
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+            ).copyWith(color: color),
+          ),
+          TextSpan(text: ' — $label'),
+        ],
+      ),
+    ),
+  );
 }

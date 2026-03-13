@@ -1,7 +1,7 @@
 part of 'package:gulapedia/src/screens/journal/views/catatan_harian_screen.dart';
 
-class JournalInfoCard extends StatelessWidget {
-  const JournalInfoCard({
+class DailyJournalCard extends StatelessWidget {
+  const DailyJournalCard({
     super.key,
     required this.periodJournals, // Renamed from 'journals'
     required this.selectedDate,

@@ -97,7 +97,6 @@ GoRouter router(AuthenticationBloc authBloc) {
                 path: '/catatan-harian',
                 builder: (context, state) {
                   final parsedDate = _parseDate(state);
-                  // Just return the screen; it will find the JournalBloc in the context
                   return CatatanHarianScreen(date: parsedDate);
                 },
               ),
@@ -108,7 +107,7 @@ GoRouter router(AuthenticationBloc authBloc) {
             routes: [
               GoRoute(
                 name: RoutesName.rekapMingguan,
-                path: '/rekap-mingguan', // Ensure the leading slash is here
+                path: '/rekap-mingguan', 
                 builder: (context, state) {
                   final parsedDate = _parseDate(state);
                   return RekapMingguanScreen(date: parsedDate);
